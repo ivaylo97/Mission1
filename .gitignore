@@ -1,0 +1,33 @@
+# COMPILED CLASSES
+*.class
+
+
+.jquery/
+*.html
+*.zip
+.
+
+# LOG FILES
+*.log
+
+# MAVEN
+target/
+
+# ECLIPSE
+.project
+.classpath
+.settings/
+
+# INTELLIJ
+.idea/
+*.iml
+
+# GIT
+*.orig
+
+# OS SPECIFIC
+.DS_Store
+
+# Project-specific
+
+

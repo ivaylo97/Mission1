@@ -1,6 +1,12 @@
 # COMPILED CLASSES
 *.class
 
+
+.jquery/
+*.html
+*.zip
+
+
 # LOG FILES
 *.log
 
