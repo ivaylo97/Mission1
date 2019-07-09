@@ -5,7 +5,8 @@
 .jquery/
 *.html
 *.zip
-.
+.index-files/
+.resources/
 
 # LOG FILES
 *.log
