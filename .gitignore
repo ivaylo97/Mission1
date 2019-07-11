@@ -36,3 +36,4 @@ target/
 *.css
 *.js
 .out
+.resources/

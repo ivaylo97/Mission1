@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 //Just hotfix test
+
 public class HotelServiceApplication {
     public static void main(String[] args)
     {
@@ -12,26 +13,19 @@ public class HotelServiceApplication {
 
 
         transylvania.setHotelName("transylvania");
-        Ivan.setHotelName("transylvania");
+        Ivan.setHotel(transylvania);
         Ivan.managedHotel = transylvania ;
         transylvania.addNewRoom(0,room101);
         transylvania.addNewRoom(1,room102);
 
-        Ivan.setHotelName(transylvania.getHotelName());
 
         tempList=Ivan.managedHotel.searchForFreeRooms();
-        if(tempList != null)
-            tempList.get(0).BookRoom();
+        if(!tempList.isEmpty()) {
+			tempList.get(0).BookRoom();
+		}
 
-        for(int generalPurposeCounter = 0 ,numberOfRooms = transylvania.getNumberOfRooms();  generalPurposeCounter < numberOfRooms ; generalPurposeCounter ++ )
-        {
+        for(int generalPurposeCounter = 0 ,numberOfRooms = transylvania.getNumberOfRooms();  generalPurposeCounter < numberOfRooms ; generalPurposeCounter ++ ) {
             Ivan.managedHotel.listOfRooms.get(generalPurposeCounter).UnbookRoom();
-
         }
-
     }
-
-
-
-
 }
