@@ -1,38 +1,48 @@
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class ManagerTest {
+ public class ManagerTest {
 
-	Manager testManager = new Manager();
-	Hotel testHotel = new Hotel();
+
 
 	@org.junit.jupiter.api.Test
-	void getHotel() {
+public	void getHotel() {
+		Manager testManager = new Manager();
+		Hotel testHotel = new Hotel();
 		testHotel.setHotelName("Test");
 		testManager.setHotel(testHotel);
 		assertSame("Test", testManager.getHotelName());
 	}
 
 	@org.junit.jupiter.api.Test
-	void getManagerName() {
+public	void getManagerName() {
+		Manager testManager = new Manager();
+		Hotel testHotel = new Hotel();
 		testManager.setManagerName("TestManagerName");
 		assertSame("TestManagerName", testManager.getManagerName());
 	}
 
 	@org.junit.jupiter.api.Test
-	void setManagerName() {
+public	void setManagerName() {
+		Manager testManager = new Manager();
+		Hotel testHotel = new Hotel();
 		testManager.setManagerName("TestManagerName");
 		assertSame("TestManagerName", testManager.getManagerName());
 	}
 
 	@org.junit.jupiter.api.Test
-	void setHotelName() {
+public	void setHotelName() {
+		Manager testManager = new Manager();
+		Hotel testHotel = new Hotel();
 		testHotel.setHotelName("Test");
 		testManager.setHotel(testHotel);
 		assertSame("Test", testManager.getHotelName());
 	}
 
 	@org.junit.jupiter.api.Test
-	void bookRoom() {
+public	void bookRoom() {
+		Manager testManager = new Manager();
+		Hotel testHotel = new Hotel();
 		Rooms testRoom = new Rooms();
 		testManager.setHotel(testHotel);
 		int roomIndex = 0 ;

@@ -1,41 +1,46 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-class HotelTest {
-	Hotel testHotel = new Hotel();
+public class HotelTest {
 
 	@org.junit.jupiter.api.Test
-	void getNumberOfRooms() {
-		assertEquals(1, testHotel.getNumberOfRooms());
+ public	void getNumberOfRooms() {
+		Hotel testHotel = new Hotel();
+		assertEquals(0, testHotel.getNumberOfRooms());
 	}
 
 	@org.junit.jupiter.api.Test
-	void initNumberOfRooms() {
-		assertEquals(1, testHotel.getNumberOfRooms());
+public	void initNumberOfRooms() {
+		Hotel testHotel = new Hotel();
+		assertEquals(0, testHotel.getNumberOfRooms());
 	}
 
 
 	@org.junit.jupiter.api.Test
-	void addNewRoom() {
+public	void addNewRoom() {
+		Hotel testHotel = new Hotel();
 		Rooms testRoom = new Rooms();
 		testHotel.addNewRoom(0,testRoom);
-		assertEquals(2,testHotel.getNumberOfRooms());
+		assertEquals(1,testHotel.getNumberOfRooms());
 
 	}
 
 	@org.junit.jupiter.api.Test
-	void getHotelName() {
+public	void getHotelName() {
+		Hotel testHotel = new Hotel();
 		testHotel.setHotelName("TestHotelName");
 		assertSame("TestHotelName",testHotel.getHotelName());
 	}
 
 	@org.junit.jupiter.api.Test
-	void setHotelName() {
+public	void setHotelName() {
+		Hotel testHotel = new Hotel();
 		testHotel.setHotelName("TestHotelName");
 		assertSame("TestHotelName",testHotel.getHotelName());
 	}
 
 	@org.junit.jupiter.api.Test
-	void searchForFreeRooms() {
+public	void searchForFreeRooms() {
+		Hotel testHotel = new Hotel();
 		Rooms testRoom = new Rooms();
 		testHotel.addNewRoom(0,testRoom);
 		assertTrue(testHotel.searchForFreeRooms().isEmpty());

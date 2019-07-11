@@ -5,7 +5,7 @@ public class Hotel {
 
 	private String hotelName;
 	public ArrayList<Rooms> listOfRooms;
-	static int numberOfRooms = 0;
+	int numberOfRooms = -1;
 
 
 	Hotel() {
@@ -21,8 +21,8 @@ public class Hotel {
 
 
 	void InitNumberOfRooms() {
-		if (numberOfRooms == 0)
-			numberOfRooms = 1;
+		if (numberOfRooms == -1)
+			numberOfRooms = 0;
 	}
 
 
@@ -60,11 +60,11 @@ public class Hotel {
 	 */
 	public ArrayList<Rooms> searchForFreeRooms() {
 		ArrayList<Rooms> temporaryList = new ArrayList<Rooms>();
-		for (int roomCounter = 0; roomCounter < Rooms.numberOfCreatedRooms; roomCounter++) {
-			if (listOfRooms.get(roomCounter).isTaken()) {
-				temporaryList.add(listOfRooms.get(roomCounter));
-			}
-		}
+		//for (int roomCounter = 0; roomCounter < temporaryList.size(); roomCounter++) {
+			//if (listOfRooms.get(roomCounter).isTaken()) {
+		//		temporaryList.add(listOfRooms.get(roomCounter));
+		//	}
+		//}
 		return temporaryList;
 	}
 }

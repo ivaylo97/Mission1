@@ -45,10 +45,10 @@ public class Manager {
      */
     public void bookRoom(int roomNumber) {
 		Rooms tempRoom = managedHotel.listOfRooms.get(roomNumber);
-		if (tempRoom.isTaken()) {
-			System.out.println("The room is already taken");
-		} else {
-			tempRoom.BookRoom();
-		}
+		//if (tempRoom.isTaken()) {
+		//	System.out.println("The room is already taken");
+		//} else {
+		//	tempRoom.BookRoom();
+		//}
 	}
 }

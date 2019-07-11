@@ -1,10 +1,12 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 //Just hotfix test
 
 public class HotelServiceApplication {
     public static void main(String[] args)
     {
-
+/*
         Manager Ivan = new Manager();
         Hotel transylvania = new Hotel();
         Rooms room101 = new Rooms();
@@ -27,5 +29,8 @@ public class HotelServiceApplication {
         for(int generalPurposeCounter = 0 ,numberOfRooms = transylvania.getNumberOfRooms();  generalPurposeCounter < numberOfRooms ; generalPurposeCounter ++ ) {
             Ivan.managedHotel.listOfRooms.get(generalPurposeCounter).UnbookRoom();
         }
+        */
+
     }
+
 }
