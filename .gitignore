@@ -35,7 +35,10 @@ target/
 .idea/
 *.css
 *.js
-.out
+out
 .resources/
 *.png
+gitignore
+element-list
+
 
