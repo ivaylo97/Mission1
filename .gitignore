@@ -2,7 +2,7 @@
 *.class
 
 
-.jquery/
+jquery/
 *.html
 *.zip
 .index-files/
