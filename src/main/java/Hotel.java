@@ -9,7 +9,7 @@ public class Hotel {
 
 
 	Hotel() {
-		hotelName = ""; // Or "Unnamed" ??
+		hotelName = "";
 		listOfRooms = new ArrayList<Rooms>();
 		InitNumberOfRooms();
 	}

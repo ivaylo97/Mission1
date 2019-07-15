@@ -82,8 +82,6 @@ public class Rooms {
 
 		objectToBeBooked.updateRoom(guestEGN,fromDate,toDate,roomToBeBooked,numberOfDays);
 
-
-
 		while(temporaryIterator.hasNext()){
 
 			temporaryObject = temporaryIterator.next();
