@@ -9,8 +9,6 @@ import java.util.Iterator;
 public class HotelServiceApplication {
 
 	public static void main(String[] args) {
-		Iterator<Bookings> testiterator ;
-		Bookings tempBooking ;
 
 		Manager Ivan = new Manager();
 		Hotel transylvania = new Hotel();
@@ -18,7 +16,6 @@ public class HotelServiceApplication {
 		Rooms room102 = new Rooms();
 
 		Rooms room103 = new Rooms();
-		ArrayList<Rooms> tempList;
 
 		room101.setCommodities(1, 1, 1);
 		room102.setCommodities(3, 1, 2);
