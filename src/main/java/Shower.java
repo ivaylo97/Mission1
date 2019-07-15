@@ -1,6 +1,6 @@
 public class Shower extends AbstractCommodity {
 	Shower() {
-		inventaryNumber = 2;
+		inventoryNumber = hashCode();
 	}
 
 	public void Prepare() {

@@ -1,36 +1,54 @@
-import java.time.LocalDate;
+//import jdk.vm.ci.meta.Local;
+
+import java.time.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 //Just hotfix test
 
 public class HotelServiceApplication {
-    public static void main(String[] args)
-    {
-/*
-        Manager Ivan = new Manager();
-        Hotel transylvania = new Hotel();
-        Rooms room101 = new Rooms();
-        Rooms room102 = new Rooms();
-        ArrayList<Rooms> tempList ;
 
+	public static void main(String[] args) {
+		Iterator<Bookings> testiterator ;
+		Bookings tempBooking ;
 
-        transylvania.setHotelName("transylvania");
-        Ivan.setHotel(transylvania);
-        Ivan.managedHotel = transylvania ;
-        transylvania.addNewRoom(0,room101);
-        transylvania.addNewRoom(1,room102);
+		Manager Ivan = new Manager();
+		Hotel transylvania = new Hotel();
+		Rooms room101 = new Rooms();
+		Rooms room102 = new Rooms();
 
+		Rooms room103 = new Rooms();
+		ArrayList<Rooms> tempList;
 
-        tempList=Ivan.managedHotel.searchForFreeRooms();
-        if(!tempList.isEmpty()) {
-			tempList.get(0).BookRoom();
+		room101.setCommodities(1, 1, 1);
+		room102.setCommodities(3, 1, 2);
+		room103.setCommodities(2,1,1);
+
+		transylvania.setHotelName("transylvania");
+		Ivan.setHotel(transylvania);
+		Ivan.managedHotel = transylvania;
+		transylvania.addNewRoom(0, room101);
+		transylvania.addNewRoom(1, room102);
+		transylvania.addNewRoom(2, room103);
+
+		Ivan.bookRoom("1111111111", configureDate("2019-07-20"), configureDate("2019-07-25"), 2, 5);
+		Ivan.bookRoom("2222222222", configureDate("2019-07-22"), configureDate("2019-07-23"), 1, 1);
+		Ivan.bookRoom("4444444444",configureDate("2019-07-19"),configureDate("2019-07-21"),2,2);
+
+		for (int generalPurposeCounter = 0, numberOfRooms = transylvania.getNumberOfRooms(); generalPurposeCounter < numberOfRooms; generalPurposeCounter++) {
+			Ivan.managedHotel.listOfRooms.get(generalPurposeCounter).removeAllBookings();
 		}
+	}
 
-        for(int generalPurposeCounter = 0 ,numberOfRooms = transylvania.getNumberOfRooms();  generalPurposeCounter < numberOfRooms ; generalPurposeCounter ++ ) {
-            Ivan.managedHotel.listOfRooms.get(generalPurposeCounter).UnbookRoom();
-        }
-        */
-
-    }
+	/**
+	 * Helper method used to parse a string to a local date.
+	 * @param date
+	 * String type variable which represents the date that is to be parsed.
+	 * @return LocalDate.parse(date);
+	 * Returns the date in local date format.
+	 */
+	static LocalDate configureDate(String date){
+		return LocalDate.parse(date);
+	}
 
 }

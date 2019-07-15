@@ -1,4 +1,4 @@
 public abstract class AbstractCommodity {
-	protected int inventaryNumber ;
+	protected int inventoryNumber;
 	abstract void Prepare();
 }

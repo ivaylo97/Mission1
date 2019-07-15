@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class Manager {
 
     private String hotelName;
@@ -41,14 +45,43 @@ public class Manager {
      * The helper variable is later used to check whether the room is taken if not the room
      * is then market as taken(BookFlag is raised), if it is it notifies us by printing a message.
      * roomNumber is used to specify the targeted room.
-     * @param roomNumber
+     * @param
      */
-    public void bookRoom(int roomNumber) {
-		Rooms tempRoom = managedHotel.listOfRooms.get(roomNumber);
-		//if (tempRoom.isTaken()) {
-		//	System.out.println("The room is already taken");
-		//} else {
-		//	tempRoom.BookRoom();
-		//}
+    public boolean bookRoom(String guestEGN,LocalDate fromDate , LocalDate toDate , int numberOfRequiredBeds,int numberOfDays) {
+		ArrayList<Rooms> listOfFreeRooms = managedHotel.searchForRooms(numberOfRequiredBeds);
+
+		if(!listOfFreeRooms.isEmpty()){
+
+			for(int roomsCounter = 0 ; roomsCounter < listOfFreeRooms.size() ; roomsCounter ++){
+				if(listOfFreeRooms.get(roomsCounter).createBooking(guestEGN,fromDate,toDate,listOfFreeRooms.get(roomsCounter),numberOfDays)){
+					listOfFreeRooms.get(roomsCounter).roomMaintenance(fromDate);
+					System.out.println("Booking successful!");
+					return true ;
+				}
+			}
+		}
+		System.out.println("None of the rooms had the number of required beds.");
+		return false ;
+	}
+
+	/**
+	 * A boolean returning method , responsible for the unbooking of a specific - user pointed out room.
+	 * @param guestEGN
+	 * Contains the guest eng in a string format.
+	 * @param fromDate
+	 * Represent sought booking's starting date.
+	 * @param toDate
+	 * Represents the sought booking's end date.
+	 * @return
+	 * Returns TRUE on success and FALSE if the rooms hasn't been found.
+	 */
+	public boolean unBookRoom(String guestEGN,LocalDate fromDate , LocalDate toDate ){
+		for(int roomsCounter = 0 ; roomsCounter < managedHotel.listOfRooms.size() ; roomsCounter++){
+			if(managedHotel.listOfRooms.get(roomsCounter).removeBooking(guestEGN,fromDate,toDate)){
+				managedHotel.listOfRooms.get(roomsCounter).roomMaintenance(toDate);
+				return  true ;
+			}
+		}
+		return false ;
 	}
 }

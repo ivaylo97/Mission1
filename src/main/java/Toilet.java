@@ -1,6 +1,6 @@
 public class Toilet extends AbstractCommodity {
 	Toilet() {
-		inventaryNumber = 3;
+		inventoryNumber = hashCode();
 	}
 	public void Prepare() {
 		System.out.println("The toilet is being cleaned.");
