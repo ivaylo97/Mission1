@@ -14,7 +14,6 @@ public class HotelServiceApplication {
 		Hotel transylvania = new Hotel();
 		Rooms room101 = new Rooms();
 		Rooms room102 = new Rooms();
-
 		Rooms room103 = new Rooms();
 
 		room101.setCommodities(1, 1, 1);

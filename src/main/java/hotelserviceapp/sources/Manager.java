@@ -49,7 +49,7 @@ public class Manager {
 	 * @return Returns boolean answer on whether the booking was successful.
 	 */
 	public boolean bookRoom(String guestEGN, LocalDate fromDate, LocalDate toDate, int numberOfRequiredBeds, int numberOfDays) {
-		ArrayList<Rooms> listOfRooms = managedHotel.searchForRooms(numberOfRequiredBeds);
+		List<Rooms> listOfRooms = managedHotel.searchForRooms(numberOfRequiredBeds);
 
 		if (!listOfRooms.isEmpty()) {
 

@@ -3,19 +3,18 @@ package hotelserviceapp.sources;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Hotel {
 
 	private String hotelName;
 	public List<Rooms> listOfRooms;
-	int numberOfRooms = -1;
-
+	private int numberOfRooms = -1;
 
 	public Hotel() {
-		hotelName = ""; // Or "Unnamed" ??
-		listOfRooms = new ArrayList<Rooms>();
+		hotelName = "";
+		listOfRooms = new ArrayList<>();
 		InitNumberOfRooms();
 	}
-
 
 	public int getNumberOfRooms() {
 		return numberOfRooms;
@@ -25,7 +24,7 @@ public class Hotel {
 	 * Initializes the numberOfRooms variable.
 	 */
 
-	void InitNumberOfRooms() {
+private 	void InitNumberOfRooms() {
 		if (numberOfRooms == -1)
 			numberOfRooms = 0;
 	}
@@ -44,7 +43,7 @@ public class Hotel {
 	/**
 	 * @return Returns the Hotel's name
 	 */
-	public String getHotelName() {
+	 String getHotelName() {
 		return hotelName;
 	}
 
@@ -62,9 +61,10 @@ public class Hotel {
 	 * If none are free returns null.
 	 *
 	 * @return
+	 * Returns a list of room that have the required number of rooms.
 	 */
-	public ArrayList<Rooms> searchForRooms(int numberOfRequiredBeds) {
-		ArrayList<Rooms> temporaryList = new ArrayList<Rooms>();
+	public List<Rooms> searchForRooms(int numberOfRequiredBeds) {
+		List<Rooms> temporaryList = new ArrayList<>();
 		for (int roomCounter = 0; roomCounter < listOfRooms.size(); roomCounter++) {
 			if (listOfRooms.get(roomCounter).getNumberOfBeds() == numberOfRequiredBeds) {
 				temporaryList.add(listOfRooms.get(roomCounter));
