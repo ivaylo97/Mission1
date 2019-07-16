@@ -1,4 +1,4 @@
-package hotelserviceapp;
+package hotelserviceapp.sources;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -31,8 +31,8 @@ public class Manager {
 	 * @param newHotel
 	 */
 	public void setHotel(Hotel newHotel) {
-		if(newHotel != null)
-		managedHotel = newHotel;
+		if (newHotel != null)
+			managedHotel = newHotel;
 		hotelName = newHotel.getHotelName();
 	}
 
@@ -60,8 +60,10 @@ public class Manager {
 					return true;
 				}
 			}
+		} else if (listOfRooms.isEmpty()) {
+			System.out.println("None of the rooms had the number of required beds.");
 		}
-		System.out.println("None of the rooms had the number of required beds.");
+
 		return false;
 	}
 

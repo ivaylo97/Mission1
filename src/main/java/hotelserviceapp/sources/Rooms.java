@@ -1,4 +1,9 @@
-package hotelserviceapp;
+package hotelserviceapp.sources;
+
+import hotelserviceapp.hotelCommodities.domain.AbstractCommodity;
+import hotelserviceapp.hotelCommodities.Bed;
+import hotelserviceapp.hotelCommodities.Shower;
+import hotelserviceapp.hotelCommodities.Toilet;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -14,7 +19,6 @@ public class Rooms {
 	private Set<LocalDate> maintenanceDates;
 	private Set<Booking> bookings;
 
-
 	Iterator<AbstractCommodity> commodityIterator;
 
 	/**
@@ -25,7 +29,6 @@ public class Rooms {
 		maintenanceDates = new HashSet<LocalDate>();
 		bookings = new HashSet<Booking>();
 		roomNumber = 1;
-
 	}
 
 	public int getRoomNumber() {
@@ -61,30 +64,14 @@ public class Rooms {
 	 */
 	public boolean createBooking(String guestEGN, LocalDate fromDate, LocalDate toDate, Rooms roomToBeBooked, int numberOfDays) {
 		Booking objectToBeBooked = new Booking();
-		Booking temporaryObject;
 		Iterator<Booking> temporaryIterator = bookings.iterator();
 		objectToBeBooked.updateRoom(guestEGN, fromDate, toDate, roomToBeBooked, numberOfDays);
-		LocalDate objectToBeBookedStartDate = objectToBeBooked.getStartDate();
-		LocalDate objectToBeBookedEndDate = objectToBeBooked.getEndDate();
 
-		while (temporaryIterator.hasNext()) {
-
-			temporaryObject = temporaryIterator.next();
-
-			if (objectToBeBookedStartDate.isAfter(temporaryObject.getStartDate())) {
-				if (objectToBeBookedStartDate.isBefore(temporaryObject.getEndDate())) {
-					System.out.println("The Starting date of your booking is already taken.");
-					return false;
-				}
-			} else {
-				if (objectToBeBookedEndDate.isAfter(temporaryObject.getStartDate())) {
-					System.out.println("The end date of your booking overlaps with another booking's days");
-					return false;
-				}
-			}
+		if (checkAvailability(objectToBeBooked, temporaryIterator)) {
+			bookings.add(objectToBeBooked);
+			return true;
 		}
-		bookings.add(objectToBeBooked);
-		return true;
+		return false;
 	}
 
 	/**
@@ -109,7 +96,7 @@ public class Rooms {
 				}
 			} else {
 				if (temporaryObjectEndDate.isAfter(temporaryIterator.next().getStartDate())) {
-					System.out.println("The end date of your booking overlaps with another booking's days");
+					System.out.println("The end date of your booking overlaps with another booking's days.");
 					return;
 				}
 			}
@@ -161,53 +148,16 @@ public class Rooms {
 	 *                           toilets into the commodities set.
 	 */
 	public void setCommodities(int newNumberOfBeds, int newNumberOfShowers, int newNumberOfToilets) {
-		numberOfBeds = newNumberOfBeds;
-		numberOfShowers = newNumberOfShowers;
-		numberOfToilets = newNumberOfToilets;
 		Iterator<AbstractCommodity> tempIterator = commodities.iterator();
 		AbstractCommodity tempObj;
 
+		numberOfBeds = newNumberOfBeds;
+		numberOfShowers = newNumberOfShowers;
+		numberOfToilets = newNumberOfToilets;
 
-		for (int bedCounter = 0, addFlag = 0; bedCounter < numberOfBeds; addFlag = 1, bedCounter++) {
-			Bed newBed = new Bed();
-			while (tempIterator.hasNext()) {
-				tempObj = tempIterator.next();
-				if (tempObj.equals(newBed)) {
-					addFlag = 0;
-					bedCounter--;
-				}
-			}
-			if (addFlag == 1) {
-				commodities.add(new Bed());
-			}
-		}
-		for (int showerCounter = 0, addFlag = 0; showerCounter < numberOfShowers; addFlag = 1, showerCounter++) {
-			Shower newShower = new Shower();
-			while (tempIterator.hasNext()) {
-				tempObj = tempIterator.next();
-				if (tempObj.equals(newShower)) {
-					addFlag = 0;
-					showerCounter--;
-				}
-			}
-			if (addFlag == 1) {
-				commodities.add(new Shower());
-			}
-
-		}
-		for (int toiletCounter = 0, addFlag = 0; toiletCounter < numberOfToilets; addFlag = 1, toiletCounter++) {
-			Toilet newToilet = new Toilet();
-			while (tempIterator.hasNext()) {
-				tempObj = tempIterator.next();
-				if (tempObj.equals(newToilet)) {
-					addFlag = 0;
-					toiletCounter--;
-				}
-			}
-			if (addFlag == 1) {
-				commodities.add(new Toilet());
-			}
-		}
+		addBeds(tempIterator);
+		addShowers(tempIterator);
+		addToilets(tempIterator);
 	}
 
 	/**
@@ -248,4 +198,98 @@ public class Rooms {
 	public Set<AbstractCommodity> getCommodities() {
 		return commodities;
 	}
+
+	private boolean checkAvailability(Booking objectToBeBooked, Iterator<Booking> temporaryIterator) {
+
+		Booking temporaryObject;
+		LocalDate objectToBeBookedStartDate = objectToBeBooked.getStartDate();
+		LocalDate objectToBeBookedEndDate = objectToBeBooked.getEndDate();
+
+		while (temporaryIterator.hasNext()) {
+
+			temporaryObject = temporaryIterator.next();
+
+			if (objectToBeBookedStartDate.isAfter(temporaryObject.getStartDate())) {
+				if (objectToBeBookedStartDate.isBefore(temporaryObject.getEndDate())) {
+					System.out.println("The Starting date of your booking is already taken.");
+					return false;
+				}
+			} else {
+				if (objectToBeBookedEndDate.isAfter(temporaryObject.getStartDate())) {
+					System.out.println("The end date of your booking overlaps with another booking's days");
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Adds as much beds as specified in the numberOfBeds variable.
+	 */
+	private void addBeds(Iterator<AbstractCommodity> tempIterator) {
+
+		AbstractCommodity tempObj;
+
+
+		for (int bedCounter = 0, addFlag = 0; bedCounter < numberOfBeds; addFlag = 1, bedCounter++) {
+			Bed newBed = new Bed();
+			while (tempIterator.hasNext()) {
+				tempObj = tempIterator.next();
+				if (tempObj.equals(newBed)) {
+					addFlag = 0;
+					bedCounter--;
+				}
+			}
+			if (addFlag == 1) {
+				commodities.add(new Bed());
+			}
+		}
+
+	}
+
+	/**
+	 * Adds as much showers as, are specified in the numberOfShowers variable.
+	 */
+	private void addShowers(Iterator<AbstractCommodity> tempIterator) {
+
+		AbstractCommodity tempObj;
+
+		for (int showerCounter = 0, addFlag = 0; showerCounter < numberOfShowers; addFlag = 1, showerCounter++) {
+			Shower newShower = new Shower();
+			while (tempIterator.hasNext()) {
+				tempObj = tempIterator.next();
+				if (tempObj.equals(newShower)) {
+					addFlag = 0;
+					showerCounter--;
+				}
+			}
+			if (addFlag == 1) {
+				commodities.add(new Shower());
+			}
+
+		}
+	}
+
+	/**
+	 * Adds as much toilets as specified in the numberOfToilets variable.
+	 */
+	private void addToilets(Iterator<AbstractCommodity> tempIterator) {
+		AbstractCommodity tempObj;
+
+		for (int toiletCounter = 0, addFlag = 0; toiletCounter < numberOfToilets; addFlag = 1, toiletCounter++) {
+			Toilet newToilet = new Toilet();
+			while (tempIterator.hasNext()) {
+				tempObj = tempIterator.next();
+				if (tempObj.equals(newToilet)) {
+					addFlag = 0;
+					toiletCounter--;
+				}
+			}
+			if (addFlag == 1) {
+				commodities.add(new Toilet());
+			}
+		}
+	}
+
 }

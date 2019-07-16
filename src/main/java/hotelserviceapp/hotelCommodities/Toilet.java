@@ -1,7 +1,9 @@
-package hotelserviceapp;
+package hotelserviceapp.hotelCommodities;
+
+import hotelserviceapp.hotelCommodities.domain.AbstractCommodity;
 
 public class Toilet extends AbstractCommodity {
-	Toilet() {
+	public Toilet() {
 		initStaticInventoryNumber();
 		StaticInventoryNumber++;
 		inventoryNumber = StaticInventoryNumber;

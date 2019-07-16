@@ -1,4 +1,4 @@
-package hotelserviceapp;
+package hotelserviceapp.sources;
 
 import java.time.*;
 
@@ -16,7 +16,7 @@ public class Booking {
 
 	public Booking(String EGN, LocalDate newStartDate, LocalDate newEndDate, Rooms roomToBeBooked) {
 		assertAndSetEGN(EGN);
-		assertAndSetDates(newStartDate,newEndDate);
+		assertAndSetDates(newStartDate, newEndDate);
 		assertRoom(roomToBeBooked);
 	}
 
@@ -32,7 +32,7 @@ public class Booking {
 
 	public void updateRoom(String newGuestEGN, LocalDate newStartDate, LocalDate newEndDate, Rooms newBookedRoom, int newNumberOfDays) {
 		assertAndSetEGN(newGuestEGN);
-		assertAndSetDates(newStartDate,newEndDate);
+		assertAndSetDates(newStartDate, newEndDate);
 		assertRoom(newBookedRoom);
 		numberOfDays = newNumberOfDays;
 
@@ -85,52 +85,51 @@ public class Booking {
 
 	/**
 	 * Method for checking if the guest's EGN has a correct value.
-	 * @param EGN
-	 * The guest's EGN.
+	 *
+	 * @param EGN The guest's EGN.
 	 */
-	private void assertAndSetEGN(String EGN){
-		if(EGN.length() < 10){
+	private void assertAndSetEGN(String EGN) {
+		if (EGN.length() < 10) {
 			System.out.println("ERROR :: Invalid EGN !");
 			guestEGN = "";
-			return ;
+			return;
 		}
-		if(EGN.isEmpty()){
+		if (EGN.isEmpty()) {
 			System.out.println("WARNING :: EGN Empty String!");
-			return ;
+			return;
 		}
-		if(EGN == null){
+		if (EGN == null) {
 			System.out.println("ERROR :: EGN is null !");
 			guestEGN = "";
-			return ;
+			return;
 		}
-		guestEGN = EGN ;
+		guestEGN = EGN;
 	}
 
 	/**
 	 * Asserts whether the dates have correct values.
-	 * @param fromDate
-	 * The booking's starting date.
-	 * @param toDate
-	 * The booking's end date.
+	 *
+	 * @param fromDate The booking's starting date.
+	 * @param toDate   The booking's end date.
 	 */
-	 private void assertAndSetDates(LocalDate fromDate,LocalDate toDate){
-		if(fromDate == null){
+	private void assertAndSetDates(LocalDate fromDate, LocalDate toDate) {
+		if (fromDate == null) {
 			System.out.println("ERROR :: fromDate has a null value !");
 			return;
 		}
-		if(toDate == null){
+		if (toDate == null) {
 			System.out.println("ERROR :: toDate has a null value !");
 			return;
 		}
-		if(fromDate.isBefore(LocalDate.now())){
+		if (fromDate.isBefore(LocalDate.now())) {
 			System.out.println("ERROR :: Invalid value :: The staring date is before today !");
-			return;
+			//return;
 		}
-		if(toDate.isBefore(LocalDate.now())){
+		if (toDate.isBefore(LocalDate.now())) {
 			System.out.println("ERROR :: Invalid value :: The end date is before today !");
-			return;
+			//return;
 		}
-		if(fromDate.isAfter(toDate)){
+		if (fromDate.isAfter(toDate)) {
 			System.out.println("ERROR :: Thr starting date is after the end date !");
 			return;
 		}
@@ -140,18 +139,18 @@ public class Booking {
 
 	/**
 	 * Asserts whether the room to be booked is a valid object.
-	 * @param roomToBeBooked
-	 * roomToBeBooked represents the object that is about to be booked.
+	 *
+	 * @param roomToBeBooked roomToBeBooked represents the object that is about to be booked.
 	 */
-	void assertRoom(Rooms roomToBeBooked){
-	 	if(roomToBeBooked == null){
-	 		System.out.println("ERROR :: Room object has null value !");
-	 		return;
+	void assertRoom(Rooms roomToBeBooked) {
+		if (roomToBeBooked == null) {
+			System.out.println("ERROR :: Room object has null value !");
+			return;
 		}
-	 	if(roomToBeBooked.getRoomNumber() <= 0){
-	 		System.out.println("WARNING :: Room number has negative value, may be invalid object !");
+		if (roomToBeBooked.getRoomNumber() <= 0) {
+			System.out.println("WARNING :: Room number has negative value, may be invalid object !");
 		}
-	 	bookedRoom = roomToBeBooked;
+		bookedRoom = roomToBeBooked;
 	}
 
 }

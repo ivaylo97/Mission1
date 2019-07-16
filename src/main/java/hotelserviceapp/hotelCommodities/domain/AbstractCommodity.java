@@ -1,10 +1,10 @@
-package hotelserviceapp;
+package hotelserviceapp.hotelCommodities.domain;
 
 public abstract class AbstractCommodity {
 	protected static int StaticInventoryNumber;
-	int inventoryNumber;
+	protected int inventoryNumber;
 
-	abstract void prepare();
+	 public abstract void prepare();
 
 	/**
 	 * An overridden version of the equals method,reconfigured to be commodity oriented.
@@ -15,7 +15,7 @@ public abstract class AbstractCommodity {
 	@Override
 	public boolean equals(Object compareObject) {
 		if (!(compareObject instanceof AbstractCommodity)) return false;
-		Bed temporaryCommodity = (Bed) compareObject;
+		AbstractCommodity temporaryCommodity = (AbstractCommodity) compareObject;
 		return this.inventoryNumber == temporaryCommodity.inventoryNumber;
 	}
 

@@ -1,7 +1,10 @@
-package hotelserviceapp;
-import java.time.*;
-import java.util.ArrayList;
-import java.util.Iterator;
+package hotelserviceapp.main;
+
+import hotelserviceapp.sources.Hotel;
+import hotelserviceapp.sources.Manager;
+import hotelserviceapp.sources.Rooms;
+import java.time.LocalDate;
+
 
 public class HotelServiceApplication {
 

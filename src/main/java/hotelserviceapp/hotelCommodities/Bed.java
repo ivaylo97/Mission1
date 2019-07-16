@@ -1,9 +1,11 @@
-package hotelserviceapp;
+package hotelserviceapp.hotelCommodities;
+
+import hotelserviceapp.hotelCommodities.domain.AbstractCommodity;
 
 public class Bed extends AbstractCommodity {
 	private int numberOfPersonas;
 
-	Bed() {
+	 public Bed() {
 		initStaticInventoryNumber();
 		StaticInventoryNumber++;
 		inventoryNumber = StaticInventoryNumber;

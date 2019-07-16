@@ -1,7 +1,9 @@
-package hotelserviceapp;
+package hotelserviceapp.hotelCommodities;
+
+import hotelserviceapp.hotelCommodities.domain.AbstractCommodity;
 
 public class Shower extends AbstractCommodity {
-	Shower() {
+	public Shower() {
 		initStaticInventoryNumber();
 		StaticInventoryNumber++;
 		inventoryNumber = StaticInventoryNumber;
