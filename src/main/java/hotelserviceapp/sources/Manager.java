@@ -55,8 +55,8 @@ public class Manager {
 
 			for (int roomsCounter = 0; roomsCounter < listOfRooms.size(); roomsCounter++) {
 				if (listOfRooms.get(roomsCounter).createBooking(guestEGN, fromDate, toDate, listOfRooms.get(roomsCounter), numberOfDays)) {
-					listOfRooms.get(roomsCounter).maintainRoom(fromDate);
 					System.out.println("Booking successful!");
+					//listOfRooms.get(roomsCounter).maintainRoom(fromDate);
 					return true;
 				}
 			}

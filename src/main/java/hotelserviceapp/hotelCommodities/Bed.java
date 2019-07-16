@@ -21,7 +21,7 @@ public class Bed extends AbstractCommodity {
 	}
 
 	public void prepare() {
-		System.out.println("The beds sheets are being replaced.");
+		System.out.println("The bed sheets are being replaced.");
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package hotelserviceapp.main;
 import hotelserviceapp.sources.Hotel;
 import hotelserviceapp.sources.Manager;
 import hotelserviceapp.sources.Rooms;
+
 import java.time.LocalDate;
 
 
@@ -12,6 +13,7 @@ public class HotelServiceApplication {
 
 		Manager Ivan = new Manager();
 		Hotel transylvania = new Hotel();
+
 		Rooms room101 = new Rooms();
 		Rooms room102 = new Rooms();
 		Rooms room103 = new Rooms();
@@ -33,6 +35,12 @@ public class HotelServiceApplication {
 		for (int generalPurposeCounter = 0, numberOfRooms = transylvania.getNumberOfRooms(); generalPurposeCounter < numberOfRooms; generalPurposeCounter++) {
 			Ivan.getManagedHotel().listOfRooms.get(generalPurposeCounter).removeAllBookings();
 		}
+
+		System.out.println(room101.getRoomNumber() + "ROOM101");
+		System.out.println(room102.getRoomNumber() + "ROOM102");
+		System.out.println(room103.getRoomNumber() + "ROOM103");
+
+
 	}
 
 	/**

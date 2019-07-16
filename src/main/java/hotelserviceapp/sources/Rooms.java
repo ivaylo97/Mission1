@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class Rooms {
+	static private int totalNumberOfRooms = 0;
 	private int roomNumber;
 	private int numberOfBeds;
 	private int numberOfShowers;
@@ -19,8 +20,6 @@ public class Rooms {
 	private Set<LocalDate> maintenanceDates;
 	private Set<Booking> bookings;
 
-	Iterator<AbstractCommodity> commodityIterator;
-
 	/**
 	 * Constructor initializing the members of the Rooms class
 	 */
@@ -28,7 +27,8 @@ public class Rooms {
 		commodities = new HashSet<AbstractCommodity>();
 		maintenanceDates = new HashSet<LocalDate>();
 		bookings = new HashSet<Booking>();
-		roomNumber = 1;
+		totalNumberOfRooms++;
+		roomNumber = totalNumberOfRooms;
 	}
 
 	public int getRoomNumber() {
@@ -41,9 +41,8 @@ public class Rooms {
 	 * @param newMaintenanceDate A Date typed object that represents a date at which the room is under maintenance.
 	 */
 	public void maintainRoom(LocalDate newMaintenanceDate) {
-		commodityIterator = commodities.iterator();
-		while (commodityIterator.hasNext()) {
-			commodityIterator.next().prepare();
+		for (AbstractCommodity commodity : commodities) {
+			commodity.prepare();
 		}
 		maintenanceDates.add(newMaintenanceDate);
 	}
@@ -67,7 +66,7 @@ public class Rooms {
 		Iterator<Booking> temporaryIterator = bookings.iterator();
 		objectToBeBooked.updateRoom(guestEGN, fromDate, toDate, roomToBeBooked, numberOfDays);
 
-		if (checkAvailability(objectToBeBooked, temporaryIterator)) {
+		if (checkAvailability(objectToBeBooked, temporaryIterator)) /*&& objectToBeBooked.equals(temporaryIterator.next()))*/{
 			bookings.add(objectToBeBooked);
 			return true;
 		}
@@ -80,7 +79,7 @@ public class Rooms {
 	 * It later traverses the booking set and checks whether the selected dates are already booked by checking whether
 	 * the starting/end dates are already present in the booking set.
 	 *
-	 * @param temporaryObject
+	 * @param temporaryObject Represents the object to be booked.
 	 */
 	public void createBooking(Booking temporaryObject) {
 
@@ -149,11 +148,12 @@ public class Rooms {
 	 */
 	public void setCommodities(int newNumberOfBeds, int newNumberOfShowers, int newNumberOfToilets) {
 		Iterator<AbstractCommodity> tempIterator = commodities.iterator();
-		AbstractCommodity tempObj;
+		if(newNumberOfBeds >= 0 && newNumberOfShowers >= 0 && newNumberOfToilets >= 0){
+			numberOfBeds = newNumberOfBeds;
+			numberOfShowers = newNumberOfShowers;
+			numberOfToilets = newNumberOfToilets;
 
-		numberOfBeds = newNumberOfBeds;
-		numberOfShowers = newNumberOfShowers;
-		numberOfToilets = newNumberOfToilets;
+		}
 
 		addBeds(tempIterator);
 		addShowers(tempIterator);
@@ -292,4 +292,10 @@ public class Rooms {
 		}
 	}
 
+	@Override
+	public boolean equals(Object compareObject) {
+		if (!(compareObject instanceof AbstractCommodity)) return false;
+		Rooms temporaryCommodity = (Rooms) compareObject;
+		return this.hashCode() == temporaryCommodity.hashCode();
+	}
 }

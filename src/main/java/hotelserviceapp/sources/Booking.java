@@ -1,14 +1,17 @@
 package hotelserviceapp.sources;
 
+import hotelserviceapp.hotelCommodities.domain.AbstractCommodity;
+
 import java.time.*;
 
 public class Booking {
+	static private int totalNumberOfBookings  = 0;
+	private int bookingID ;
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private int numberOfDays;
 	private Rooms bookedRoom;
 	private String guestEGN;
-
 
 	public Booking() {
 		guestEGN = "";
@@ -18,6 +21,7 @@ public class Booking {
 		assertAndSetEGN(EGN);
 		assertAndSetDates(newStartDate, newEndDate);
 		assertRoom(roomToBeBooked);
+		bookingID = hashCode();
 	}
 
 	/**
@@ -153,4 +157,14 @@ public class Booking {
 		bookedRoom = roomToBeBooked;
 	}
 
+	@Override
+	public boolean equals(Object compareObject) {
+		if (!(compareObject instanceof Booking)) return false;
+		return this.bookingID == ((Booking) compareObject).bookingID;
+	}
+	@Override
+	public int hashCode(){
+		totalNumberOfBookings++;
+		return  totalNumberOfBookings;
+	}
 }

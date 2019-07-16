@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 class BookingTest {
 
 	@Test
@@ -18,10 +17,10 @@ class BookingTest {
 		//when
 		testBooking.updateRoom("test", testStartDate, testEndDate, testBookRoom, 1);
 		//then
-		assertTrue(testBooking.getGuestEGN().equals("test"));
-		assertTrue(testBooking.getStartDate().equals(testStartDate));
-		assertTrue(testBooking.getEndDate().equals(testEndDate));
-		assertTrue(testBooking.getBookedRoom().equals(testBookRoom));
+		assertTrue("test".equals(testBooking.getGuestEGN()));
+		assertTrue(testStartDate.equals(testBooking.getStartDate()));
+		assertTrue(testEndDate.equals(testBooking.getEndDate()));
+		assertTrue(testBookRoom.equals(testBooking.getBookedRoom()));
 		assertTrue(testBooking.getNumberOfDays() == 1);
 	}
 }
