@@ -17,7 +17,7 @@ class BookingTest {
 		//when
 		testBooking.updateRoom("test", testStartDate, testEndDate, testBookRoom, 1);
 		//then
-		assertTrue("test".equals(testBooking.getGuestEGN()));
+		assertTrue("test".equals(testBooking.getGuestID()));
 		assertTrue(testStartDate.equals(testBooking.getStartDate()));
 		assertTrue(testEndDate.equals(testBooking.getEndDate()));
 		assertTrue(testBookRoom.equals(testBooking.getBookedRoom()));
