@@ -1,13 +1,6 @@
-import hotelserviceapp.sources.Manager;
-import hotelserviceapp.sources.Rooms;
-import hotelserviceapp.sources.Hotel;
-
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
+import hotelserviceapp.sources.*;
+import org.junit.jupiter.api.*;
 import java.time.LocalDate;
-
 
 import static org.junit.jupiter.api.Assertions.*;
 
