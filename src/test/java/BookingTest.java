@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BookingTest {
 
 	@Test
-	void updateRoom() {
+	void testUpdateRoom() {
 		//given
 		Booking testBooking = new Booking();
 		Rooms testBookRoom = new Rooms();

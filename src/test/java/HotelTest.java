@@ -22,7 +22,7 @@ class HotelTest {
 	}
 
 	@Test
-	void addNewRoom() {
+	void testAddNewRoom() {
 		//given
 		int idx = 0;
 		//when
@@ -32,7 +32,7 @@ class HotelTest {
 	}
 
 	@Test
-	void searchForRooms() {
+	void testSearchForRooms() {
 		//given
 		testRoom1.setCommodities(3, 0, 0);
 		testRoom2.setCommodities(2, 0, 0);

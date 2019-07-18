@@ -1,4 +1,6 @@
 package hotelserviceapp.sources;
+import hotelserviceapp.Support.*;
+
 
 import java.time.*;
 import java.util.Set;
@@ -28,8 +30,8 @@ public class Booking {
 	}
 
 	/**
-	 * This method takes the listed parameters below and uses them to initialize the class' members.
-	 *
+	 * The method uses it's passed formal parameters ,asserts if they have correct values and then uses them to
+	 * Re-Set the already present and set object members.
 	 * @param newGuestID     newGuestID is a string type variable , containing the guest's EGN number.
 	 * @param newStartDate    newStartDate is a LocalDate type variable which contains the requested booking's starting date.
 	 * @param newEndDate      newEndDate is a LocalDate type variable which contains the requested booking's end date .
@@ -101,20 +103,11 @@ public class Booking {
 
 	private void assertAndSetID(String ID) {
 		if (ID.length() < 10) {
-			System.out.println("ERROR :: Invalid ID !");
-			guestID = "";
-			return;
-		}
-
-		if (ID.isEmpty()) {
-			System.out.println("WARNING :: ID Empty String!");
-			return;
+			throw  new InvalidValueIDException();
 		}
 
 		if (ID == null) {
-			System.out.println("ERROR :: ID is null !");
-			guestID = "";
-			return;
+			throw new NullValueIdException();
 		}
 		guestID = ID;
 
@@ -128,24 +121,19 @@ public class Booking {
 	 */
 	private void assertAndSetDates(LocalDate fromDate, LocalDate toDate) {
 		if (fromDate == null) {
-			System.out.println("ERROR :: fromDate has a null value !");
-			return;
+			throw new DateHasNullValueException();
 		}
 		if (toDate == null) {
-			System.out.println("ERROR :: toDate has a null value !");
-			return;
+			throw new DateHasNullValueException();
 		}
 		if (fromDate.isBefore(LocalDate.now())) {
-			System.out.println("ERROR :: Invalid value :: The staring date is before today !");
-			//return;
+			throw new InvalidValuesException();
 		}
 		if (toDate.isBefore(LocalDate.now())) {
-			System.out.println("ERROR :: Invalid value :: The end date is before today !");
-			//return;
+			throw  new InvalidValuesException();
 		}
 		if (fromDate.isAfter(toDate)) {
-			System.out.println("ERROR :: Thr starting date is after the end date !");
-			return;
+			throw new InvalidValuesException(fromDate,toDate);
 		}
 		startDate = fromDate;
 		endDate = toDate;

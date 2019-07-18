@@ -22,9 +22,9 @@ public class Rooms {
 	 * Constructor initializing the members of the Rooms class
 	 */
 	public Rooms() {
-		commodities = new HashSet<AbstractCommodity>();
-		maintenanceDates = new HashSet<LocalDate>();
-		bookings = new HashSet<Booking>();
+		commodities = new HashSet<>();
+		maintenanceDates = new HashSet<>();
+		bookings = new HashSet<>();
 		calculateRoomCapacity();
 		totalNumberOfRooms++;
 		roomNumber = totalNumberOfRooms;
@@ -40,9 +40,14 @@ public class Rooms {
 	 * @param newMaintenanceDate A Date typed object that represents a date at which the room is under maintenance.
 	 */
 	public void maintainRoom(LocalDate newMaintenanceDate) {
+
+		if (newMaintenanceDate == null) {
+			//throw  new DateHasNullValueException.runtimeException();
+		}
 		for (AbstractCommodity commodity : commodities) {
 			commodity.prepare();
 		}
+
 		maintenanceDates.add(newMaintenanceDate);
 	}
 
@@ -301,12 +306,12 @@ public class Rooms {
 		while (tempIterator.hasNext()) {
 			if (tempIterator.next() instanceof Bed) {
 				Bed.BedTypes bedType = ((Bed) tempIterator.next()).getBedType();
-				if(bedType.equals(Bed.BedTypes.Single)){
+				if (bedType.equals(Bed.BedTypes.SINGLE)) {
 					numberOfBeds++;
-				}else if(bedType.equals(Bed.BedTypes.Double)){
-					numberOfBeds+=2;
-				}else{
-					numberOfBeds+=2;
+				} else if (bedType.equals(Bed.BedTypes.DOUBLE)) {
+					numberOfBeds += 2;
+				} else {
+					numberOfBeds += 2;
 				}
 			}
 		}

@@ -1,4 +1,4 @@
-package java;
+
 
 import hotelserviceapp.sources.Rooms;
 import hotelserviceapp.sources.Booking;
@@ -19,15 +19,12 @@ Rooms testRoom;
 	}
 
 	@Test
-	void initNumberOfRooms() {
-		//given @BeforeEach
-		//when testRoom.getRoomNumber();
-		//then
+	void testInitNumberOfRooms() {
 		assertTrue(testRoom.getRoomNumber() == 1);
 	}
 
 	@Test
-	void roomMaintenance() {
+	void testRoomMaintenance() {
 		//given
 		LocalDate testMaintenanceDate = LocalDate.parse("2001-01-01");
 		//when
@@ -37,7 +34,7 @@ Rooms testRoom;
 	}
 
 	@Test
-	void createBooking() {
+	void testCreateBooking() {
 		//given
 		int testNumberOfDays = 365;
 		LocalDate testStartDate = LocalDate.parse("2001-01-01");
@@ -50,7 +47,7 @@ Rooms testRoom;
 	}
 
 	@Test
-	void createBooking1() {
+	void testCreateBooking1() {
 		//given
 		Booking testBooking = new Booking();
 		LocalDate testStartDate = LocalDate.parse("2000-02-02");
@@ -63,7 +60,7 @@ Rooms testRoom;
 	}
 
 	@Test
-	void removeBooking() {
+	void testRemoveBooking() {
 		//given
 		int testNumberOfDays = 365;
 		LocalDate testStartDate = LocalDate.parse("2001-01-01");
@@ -77,7 +74,7 @@ Rooms testRoom;
 	}
 
 	@Test
-	void removeAllBookings() {
+	void testRemoveAllBookings() {
 		//given
 		Booking testBooking = new Booking();
 		LocalDate testStartDate = LocalDate.parse("2000-02-02");
@@ -91,7 +88,7 @@ Rooms testRoom;
 	}
 
 	@Test
-	void setCommodities() {
+	void testSetCommodities() {
 		//given
 		int numberOfBeds = 1;
 		int numberOfToilets = 3;
