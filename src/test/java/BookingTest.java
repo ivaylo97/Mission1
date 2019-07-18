@@ -1,3 +1,5 @@
+package java;
+
 import hotelserviceapp.sources.Rooms;
 import hotelserviceapp.sources.Booking;
 import org.junit.jupiter.api.Test;
@@ -18,11 +20,12 @@ class BookingTest {
 		//when
 		testBooking.updateRoom("test", testStartDate, testEndDate, testBookRoom, 1);
 		//then
-		assertTrue(testBooking.getGuestEGN().equals("test"));
-		assertTrue(testBooking.getStartDate().equals(testStartDate));
-		assertTrue(testBooking.getEndDate().equals(testEndDate));
-		assertTrue(testBooking.getBookedRoom().equals(testBookRoom));
-		assertTrue(testBooking.getNumberOfDays() == 1);
+
+		assertTrue("test".equals(testBooking.getGuestID()));
+		assertTrue(testStartDate.equals(testBooking.getStartDate()));
+		assertTrue(testEndDate.equals(testBooking.getEndDate()));
+		assertTrue(testBookRoom.equals(testBooking.getBookedRoom()));
+
 	}
 }
 

@@ -119,7 +119,7 @@ public class Rooms {
 		Booking tempBooking;
 		while (temporaryIterator.hasNext()) {
 			tempBooking = temporaryIterator.next();
-			if (guestEGN.equals(tempBooking.getGuestEGN())) {
+			if (guestEGN.equals(tempBooking.getGuestID())) {
 				if (tempBooking.getStartDate().equals(fromDate) && tempBooking.getEndDate().equals(toDate)) {
 					temporaryIterator.remove();
 					System.out.println("Booking remove successful!");

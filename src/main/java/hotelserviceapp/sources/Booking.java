@@ -7,11 +7,11 @@ public class Booking {
 	private LocalDate endDate;
 	private int numberOfDays;
 	private Rooms bookedRoom;
-	private String guestEGN;
+	private String guestID;
 
 
 	public Booking() {
-		guestEGN = "";
+		guestID = "";
 	}
 
 	public Booking(String EGN, LocalDate newStartDate, LocalDate newEndDate, Rooms roomToBeBooked) {
@@ -61,8 +61,8 @@ public class Booking {
 	 *
 	 * @return
 	 */
-	public String getGuestEGN() {
-		return guestEGN;
+	public String getGuestID() {
+		return guestID;
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class Booking {
 	private void assertAndSetEGN(String EGN) {
 		if (EGN.length() < 10) {
 			System.out.println("ERROR :: Invalid EGN !");
-			guestEGN = "";
+			guestID = "";
 			return;
 		}
 		if (EGN.isEmpty()) {
@@ -100,10 +100,10 @@ public class Booking {
 		}
 		if (EGN == null) {
 			System.out.println("ERROR :: EGN is null !");
-			guestEGN = "";
+			guestID = "";
 			return;
 		}
-		guestEGN = EGN;
+		guestID = EGN;
 	}
 
 	/**

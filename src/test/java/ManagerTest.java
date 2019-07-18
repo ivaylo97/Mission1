@@ -1,6 +1,8 @@
+import hotelserviceapp.sources.Manager;
 import hotelserviceapp.sources.Rooms;
 import hotelserviceapp.sources.Hotel;
-import hotelserviceapp.sources.Manager;
+
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
