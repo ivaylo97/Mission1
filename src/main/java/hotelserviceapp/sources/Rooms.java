@@ -1,9 +1,7 @@
 package hotelserviceapp.sources;
 
 import hotelserviceapp.hotelCommodities.domain.AbstractCommodity;
-import hotelserviceapp.hotelCommodities.Bed;
-import hotelserviceapp.hotelCommodities.Shower;
-import hotelserviceapp.hotelCommodities.Toilet;
+import hotelserviceapp.hotelCommodities.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
