@@ -1,5 +1,4 @@
 package hotelserviceapp.sources;
-
 import java.time.LocalDate;
 import java.util.*;
 
@@ -31,9 +30,10 @@ public class Manager {
 	 * @param newHotel
 	 */
 	public void setHotel(Hotel newHotel) {
-		if (newHotel != null)
+		if (newHotel != null) {
 			managedHotel = newHotel;
-		hotelName = newHotel.getHotelName();
+			hotelName = newHotel.getHotelName();
+		}
 	}
 
 	/**
@@ -48,23 +48,25 @@ public class Manager {
 	 * @param numberOfDays         int - represents how long the booking will last in number of days.
 	 * @return Returns boolean answer on whether the booking was successful.
 	 */
-	public boolean bookRoom(String guestEGN, LocalDate fromDate, LocalDate toDate, int numberOfRequiredBeds, int numberOfDays) {
+	public int bookRoom(String guestEGN, LocalDate fromDate, LocalDate toDate, int numberOfRequiredBeds, int numberOfDays) {
 		List<Rooms> listOfRooms = managedHotel.searchForRooms(numberOfRequiredBeds);
+		int roomNumber = -1 ;
 
 		if (!listOfRooms.isEmpty()) {
 
 			for (int roomsCounter = 0; roomsCounter < listOfRooms.size(); roomsCounter++) {
-				if (listOfRooms.get(roomsCounter).createBooking(guestEGN, fromDate, toDate, listOfRooms.get(roomsCounter), numberOfDays)) {
+				roomNumber = listOfRooms.get(roomsCounter).createBooking(guestEGN, fromDate, toDate, listOfRooms.get(roomsCounter), numberOfDays);
+				if (roomNumber >= 0) {
 					System.out.println("Booking successful!");
-					//listOfRooms.get(roomsCounter).maintainRoom(fromDate);
-					return true;
+					listOfRooms.get(roomsCounter).maintainRoom(fromDate);
+					return roomNumber ;
 				}
 			}
-		} else if (listOfRooms.isEmpty()) {
+		} else {
 			System.out.println("None of the rooms had the number of required beds.");
 		}
 
-		return false;
+		return -1;
 	}
 
 	/**

@@ -3,21 +3,30 @@ package hotelserviceapp.hotelCommodities;
 import hotelserviceapp.hotelCommodities.domain.AbstractCommodity;
 
 public class Bed extends AbstractCommodity {
-	private int numberOfPersonas;
+
+	public enum BedTypes{
+		Single,
+		Double,
+		KingSize,
+		Couch,
+	}
+	private BedTypes bedType ;
 
 	 public Bed() {
 		initStaticInventoryNumber();
 		StaticInventoryNumber++;
 		inventoryNumber = StaticInventoryNumber;
-		numberOfPersonas = 1;
+		bedType = BedTypes.Single;
 	}
 
-	public void setNumberOfPersonas(int numberOfPersons) {
-		this.numberOfPersonas = numberOfPersons;
+	private void setBedType(BedTypes bedType){
+	 	if(bedType != null){
+	 		this.bedType = bedType;
+		}
 	}
 
-	public int getNumberOfPersonas() {
-		return numberOfPersonas;
+	public BedTypes getBedType(){
+	 	return bedType;
 	}
 
 	public void prepare() {

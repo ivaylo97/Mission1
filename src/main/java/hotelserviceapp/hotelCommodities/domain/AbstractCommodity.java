@@ -1,7 +1,7 @@
 package hotelserviceapp.hotelCommodities.domain;
 
 public abstract class AbstractCommodity {
-	protected static int StaticInventoryNumber;
+	protected static int StaticInventoryNumber ;
 	protected int inventoryNumber;
 
 	 public abstract void prepare();
@@ -16,7 +16,7 @@ public abstract class AbstractCommodity {
 	public boolean equals(Object compareObject) {
 		if (!(compareObject instanceof AbstractCommodity)) return false;
 		AbstractCommodity temporaryCommodity = (AbstractCommodity) compareObject;
-		return this.inventoryNumber == temporaryCommodity.inventoryNumber;
+		return this.hashCode() == temporaryCommodity.hashCode();
 	}
 
 	/**
@@ -26,5 +26,8 @@ public abstract class AbstractCommodity {
 	 * @return
 	 */
 	@Override
-	public abstract int hashCode();
+	public  int hashCode(){
+		return this.inventoryNumber;
+	}
+
 }

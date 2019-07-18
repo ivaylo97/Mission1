@@ -27,6 +27,7 @@ public class Rooms {
 		commodities = new HashSet<AbstractCommodity>();
 		maintenanceDates = new HashSet<LocalDate>();
 		bookings = new HashSet<Booking>();
+		calculateRoomCapacity();
 		totalNumberOfRooms++;
 		roomNumber = totalNumberOfRooms;
 	}
@@ -53,7 +54,7 @@ public class Rooms {
 	 * that is to be booked.
 	 * It later traverses the booking set and checks whether the selected dates are already booked by checking whether the
 	 * starting/end dates are already present in the booking set.
-	 * Returns an asnwer on whether the booking was successful.
+	 * Returns room number on successful booking , and negative value on failure.
 	 *
 	 * @param guestEGN       newGuestEGN is a string type variable , containing the guest's EGN number.
 	 * @param fromDate       fromDate is a LocalDate type variable which contains the requested booking's starting date.
@@ -61,16 +62,17 @@ public class Rooms {
 	 * @param roomToBeBooked roomToBeBooked is an object which represents the room that is being booked.
 	 * @param numberOfDays   numberOfDays is an integer type variable which represents the number of days for which the room will be booked.
 	 */
-	public boolean createBooking(String guestEGN, LocalDate fromDate, LocalDate toDate, Rooms roomToBeBooked, int numberOfDays) {
+	public int createBooking(String guestEGN, LocalDate fromDate, LocalDate toDate, Rooms roomToBeBooked, int numberOfDays) {
 		Booking objectToBeBooked = new Booking();
 		Iterator<Booking> temporaryIterator = bookings.iterator();
 		objectToBeBooked.updateRoom(guestEGN, fromDate, toDate, roomToBeBooked, numberOfDays);
-
-		if (checkAvailability(objectToBeBooked, temporaryIterator)) /*&& objectToBeBooked.equals(temporaryIterator.next()))*/{
-			bookings.add(objectToBeBooked);
-			return true;
+		if (!objectToBeBooked.isPresentIn(bookings)) {
+			if (checkAvailability(objectToBeBooked, temporaryIterator)) {
+				bookings.add(objectToBeBooked);
+				return roomNumber;
+			}
 		}
-		return false;
+		return -1;
 	}
 
 	/**
@@ -118,7 +120,7 @@ public class Rooms {
 		Booking tempBooking;
 		while (temporaryIterator.hasNext()) {
 			tempBooking = temporaryIterator.next();
-			if (guestEGN.equals(tempBooking.getGuestEGN())) {
+			if (guestEGN.equals(tempBooking.getGuestID())) {
 				if (tempBooking.getStartDate().equals(fromDate) && tempBooking.getEndDate().equals(toDate)) {
 					temporaryIterator.remove();
 					System.out.println("Booking remove successful!");
@@ -147,17 +149,16 @@ public class Rooms {
 	 *                           toilets into the commodities set.
 	 */
 	public void setCommodities(int newNumberOfBeds, int newNumberOfShowers, int newNumberOfToilets) {
-		Iterator<AbstractCommodity> tempIterator = commodities.iterator();
-		if(newNumberOfBeds >= 0 && newNumberOfShowers >= 0 && newNumberOfToilets >= 0){
+		if (newNumberOfBeds >= 0 && newNumberOfShowers >= 0 && newNumberOfToilets >= 0) {
 			numberOfBeds = newNumberOfBeds;
 			numberOfShowers = newNumberOfShowers;
 			numberOfToilets = newNumberOfToilets;
 
 		}
 
-		addBeds(tempIterator);
-		addShowers(tempIterator);
-		addToilets(tempIterator);
+		addBeds();
+		addShowers();
+		addToilets();
 	}
 
 	/**
@@ -227,22 +228,22 @@ public class Rooms {
 	/**
 	 * Adds as much beds as specified in the numberOfBeds variable.
 	 */
-	private void addBeds(Iterator<AbstractCommodity> tempIterator) {
+	private void addBeds() {
+		Iterator<AbstractCommodity> tempIterator;
 
-		AbstractCommodity tempObj;
-
-
-		for (int bedCounter = 0, addFlag = 0; bedCounter < numberOfBeds; addFlag = 1, bedCounter++) {
+		for (int bedCounter = 0, addFlag = 1; bedCounter < numberOfBeds; addFlag = 1, bedCounter++) {
+			tempIterator = commodities.iterator();
 			Bed newBed = new Bed();
-			while (tempIterator.hasNext()) {
-				tempObj = tempIterator.next();
-				if (tempObj.equals(newBed)) {
-					addFlag = 0;
-					bedCounter--;
+			if (tempIterator.hasNext()) {
+				while (tempIterator.hasNext()) {
+					if (tempIterator.next().equals(newBed)) {
+						addFlag = 0;
+						bedCounter--;
+					}
 				}
 			}
 			if (addFlag == 1) {
-				commodities.add(new Bed());
+				commodities.add(newBed);
 			}
 		}
 
@@ -251,51 +252,77 @@ public class Rooms {
 	/**
 	 * Adds as much showers as, are specified in the numberOfShowers variable.
 	 */
-	private void addShowers(Iterator<AbstractCommodity> tempIterator) {
+	private void addShowers() {
+		Iterator<AbstractCommodity> tempIterator;
 
-		AbstractCommodity tempObj;
-
-		for (int showerCounter = 0, addFlag = 0; showerCounter < numberOfShowers; addFlag = 1, showerCounter++) {
+		for (int showerCounter = 0, addFlag = 1; showerCounter < numberOfShowers; addFlag = 1, showerCounter++) {
+			tempIterator = commodities.iterator();
 			Shower newShower = new Shower();
-			while (tempIterator.hasNext()) {
-				tempObj = tempIterator.next();
-				if (tempObj.equals(newShower)) {
-					addFlag = 0;
-					showerCounter--;
+			if (tempIterator.hasNext()) {
+				while (tempIterator.hasNext()) {
+					if (tempIterator.next().equals(newShower)) {
+						addFlag = 0;
+						showerCounter--;
+					}
 				}
 			}
 			if (addFlag == 1) {
-				commodities.add(new Shower());
+				commodities.add(newShower);
 			}
-
 		}
 	}
 
 	/**
 	 * Adds as much toilets as specified in the numberOfToilets variable.
 	 */
-	private void addToilets(Iterator<AbstractCommodity> tempIterator) {
-		AbstractCommodity tempObj;
+	private void addToilets() {
+		Iterator<AbstractCommodity> tempIterator;
 
-		for (int toiletCounter = 0, addFlag = 0; toiletCounter < numberOfToilets; addFlag = 1, toiletCounter++) {
+		for (int showerCounter = 0, addFlag = 1; showerCounter < numberOfToilets; addFlag = 1, showerCounter++) {
+			tempIterator = commodities.iterator();
 			Toilet newToilet = new Toilet();
-			while (tempIterator.hasNext()) {
-				tempObj = tempIterator.next();
-				if (tempObj.equals(newToilet)) {
-					addFlag = 0;
-					toiletCounter--;
+			if (tempIterator.hasNext()) {
+				while (tempIterator.hasNext()) {
+					if (tempIterator.next().equals(newToilet)) {
+						addFlag = 0;
+						showerCounter--;
+					}
 				}
 			}
 			if (addFlag == 1) {
-				commodities.add(new Toilet());
+				commodities.add(newToilet);
 			}
 		}
 	}
 
+	/**
+	 * Calculates the room's capacity but converti
+	 */
+	private void calculateRoomCapacity() {
+		Iterator<AbstractCommodity> tempIterator = commodities.iterator();
+		while (tempIterator.hasNext()) {
+			if (tempIterator.next() instanceof Bed) {
+				Bed.BedTypes bedType = ((Bed) tempIterator.next()).getBedType();
+				if(bedType.equals(Bed.BedTypes.Single)){
+					numberOfBeds++;
+				}else if(bedType.equals(Bed.BedTypes.Double)){
+					numberOfBeds+=2;
+				}else{
+					numberOfBeds+=2;
+				}
+			}
+		}
+	}
+
+
 	@Override
 	public boolean equals(Object compareObject) {
-		if (!(compareObject instanceof AbstractCommodity)) return false;
-		Rooms temporaryCommodity = (Rooms) compareObject;
-		return this.hashCode() == temporaryCommodity.hashCode();
+		if (!(compareObject instanceof Rooms)) return false;
+		return this.hashCode() == compareObject.hashCode();
+	}
+
+	@Override
+	public int hashCode() {
+		return this.roomNumber;
 	}
 }
