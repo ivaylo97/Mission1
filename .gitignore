@@ -2,7 +2,7 @@
 *.class
 
 
-.jquery/
+jquery/
 *.html
 *.zip
 .index-files/
@@ -35,4 +35,10 @@ target/
 .idea/
 *.css
 *.js
-.out
+out
+.resources/
+*.png
+gitignore
+element-list
+
+
