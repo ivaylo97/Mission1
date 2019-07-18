@@ -1,3 +1,5 @@
+package java;
+
 import hotelserviceapp.sources.Rooms;
 import hotelserviceapp.sources.Booking;
 import org.junit.jupiter.api.BeforeEach;

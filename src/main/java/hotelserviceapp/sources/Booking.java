@@ -14,9 +14,10 @@ public class Booking {
 
 	public Booking() {
 		guestID = "";
-		totalNumberOfBookings ++;
+		totalNumberOfBookings++;
 		bookingID = totalNumberOfBookings;
 	}
+
 
 	public Booking(String EGN, LocalDate newStartDate, LocalDate newEndDate, Rooms roomToBeBooked) {
 		assertAndSetID(EGN);
@@ -97,22 +98,26 @@ public class Booking {
 	 *
 	 * @param ID The guest's ID.
 	 */
+
 	private void assertAndSetID(String ID) {
 		if (ID.length() < 10) {
 			System.out.println("ERROR :: Invalid ID !");
 			guestID = "";
 			return;
 		}
+
 		if (ID.isEmpty()) {
 			System.out.println("WARNING :: ID Empty String!");
 			return;
 		}
+
 		if (ID == null) {
 			System.out.println("ERROR :: ID is null !");
 			guestID = "";
 			return;
 		}
 		guestID = ID;
+
 	}
 
 	/**
