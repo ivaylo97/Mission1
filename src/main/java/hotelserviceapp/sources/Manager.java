@@ -1,6 +1,6 @@
 package hotelserviceapp.sources;
 
-import hotelserviceapp.Support.domain.AbstractExceptionClass;
+import hotelserviceapp.Support.*;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -13,8 +13,7 @@ public class Manager {
 
 
 	/**
-	 * @return
-	 * Returns the manager's name.
+	 * @return Returns the manager's name.
 	 */
 
 	String getManagerName() {
@@ -29,15 +28,12 @@ public class Manager {
 	 * This method takes a Hotel object as a formal parameter which is later used to set the values of the managedHotel
 	 * and the hotelName variables.
 	 *
-	 * @param newHotel
-	 * Represents the hotel that is going to be managed.
+	 * @param newHotel Represents the hotel that is going to be managed.
 	 */
 	public void setHotel(Hotel newHotel) {
 		if (newHotel != null) {
 			managedHotel = newHotel;
 			hotelName = newHotel.getHotelName();
-		} else {
-			//throw AbstractExceptionClass.nullHotelException();
 		}
 	}
 
@@ -54,12 +50,12 @@ public class Manager {
 	 * @return Returns boolean answer on whether the booking was successful.
 	 */
 	public int bookRoom(String guestEGN, LocalDate fromDate, LocalDate toDate, int numberOfRequiredBeds, int numberOfDays) {
-		List<Rooms> listOfRooms = managedHotel.searchForRooms(numberOfRequiredBeds);
-		int roomNumber = -1;
+		List<Room> listOfRooms = managedHotel.searchForRooms(numberOfRequiredBeds);
+		int roomNumber;
 
 		if (!listOfRooms.isEmpty()) {
 
-			for (Rooms listOfRoom : listOfRooms) {
+			for (Room listOfRoom : listOfRooms) {
 				roomNumber = listOfRoom.createBooking(guestEGN, fromDate, toDate, listOfRoom, numberOfDays);
 				if (roomNumber >= 0) {
 					System.out.println("Booking successful!");
@@ -67,15 +63,13 @@ public class Manager {
 					return roomNumber;
 				}
 			}
-		} else {
-			System.out.println("None of the rooms had the number of required beds.");
 		}
-
-		return -1;
+		throw new EmptyListOfRoomsException();
 	}
 
 	/**
 	 * A boolean returning method , responsible for the unbooking of a specific - user pointed out room.
+	 *
 	 * @param guestEGN Contains the guest eng in a string format.
 	 * @param fromDate Represent sought booking's starting date.
 	 * @param toDate   Represents the sought booking's end date.

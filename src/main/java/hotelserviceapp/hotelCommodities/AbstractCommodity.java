@@ -1,10 +1,10 @@
-package hotelserviceapp.hotelCommodities.domain;
+package hotelserviceapp.hotelCommodities;
 
 public abstract class AbstractCommodity {
 	protected static int STATICINVENTORYNUMBER;
 	protected int inventoryNumber;
 
-	 public abstract void prepare();
+	public abstract void prepare();
 
 	/**
 	 * An overridden version of the equals method,reconfigured to be commodity oriented.
@@ -26,7 +26,7 @@ public abstract class AbstractCommodity {
 	 * @return
 	 */
 	@Override
-	public  int hashCode(){
+	public int hashCode() {
 		return this.inventoryNumber;
 	}
 
