@@ -1,6 +1,6 @@
 package hotelserviceapp.hotelCommodities;
 
-import hotelserviceapp.hotelCommodities.domain.AbstractCommodity;
+import hotelserviceapp.hotelCommodities.AbstractCommodity;
 
 public class Toilet extends AbstractCommodity {
 	public Toilet() {

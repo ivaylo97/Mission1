@@ -1,6 +1,6 @@
 package hotelserviceapp.sources;
 
-import hotelserviceapp.Support.domain.AbstractExceptionClass;
+import hotelserviceapp.Support.*;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -50,13 +50,12 @@ public class Manager {
 	 * @return Returns boolean answer on whether the booking was successful.
 	 */
 	public int bookRoom(String guestEGN, LocalDate fromDate, LocalDate toDate, int numberOfRequiredBeds, int numberOfDays) {
-		List<Rooms> listOfRooms = managedHotel.searchForRooms(numberOfRequiredBeds);
-
-		int roomNumber = -1;
+		List<Room> listOfRooms = managedHotel.searchForRooms(numberOfRequiredBeds);
+		int roomNumber;
 
 		if (!listOfRooms.isEmpty()) {
 
-			for (Rooms listOfRoom : listOfRooms) {
+			for (Room listOfRoom : listOfRooms) {
 				roomNumber = listOfRoom.createBooking(guestEGN, fromDate, toDate, listOfRoom, numberOfDays);
 				if (roomNumber >= 0) {
 					System.out.println("Booking successful!");
@@ -64,11 +63,8 @@ public class Manager {
 					return roomNumber;
 				}
 			}
-		} else {
-			System.out.println("None of the rooms had the number of required beds.");
 		}
-
-		return -1;
+		throw new EmptyListOfRoomsException();
 	}
 
 	/**

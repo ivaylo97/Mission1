@@ -7,7 +7,7 @@ import java.util.List;
 public class Hotel {
 
 	private String hotelName;
-	public List<Rooms> listOfRooms;
+	public List<Room> listOfRooms;
 	private int numberOfRooms = -1;
 
 	public Hotel() {
@@ -32,9 +32,9 @@ public class Hotel {
 	/**
 	 * @param idx     An int type variable, which is used to point out the index,of array list of rooms , at which the room will
 	 *                be added.
-	 * @param NewRoom A Rooms type object which represents the room that will be added to the list of rooms.
+	 * @param NewRoom A Room type object which represents the room that will be added to the list of rooms.
 	 */
-	public void addNewRoom(int idx, Rooms NewRoom) {
+	public void addNewRoom(int idx, Room NewRoom) {
 		listOfRooms.add(idx, NewRoom);
 		numberOfRooms++;
 	}
@@ -62,10 +62,10 @@ public class Hotel {
 	 *
 	 * @return Returns a list of room that have the required number of rooms.
 	 */
-	public List<Rooms> searchForRooms(int numberOfRequiredBeds) {
-		List<Rooms> temporaryList = new ArrayList<>();
+	public List<Room> searchForRooms(int numberOfRequiredBeds) {
+		List<Room> temporaryList = new ArrayList<>();
 		for (int roomCounter = 0; roomCounter < listOfRooms.size(); roomCounter++) {
-			if (listOfRooms.get(roomCounter).getNumberOfBeds() == numberOfRequiredBeds) {
+			if (listOfRooms.get(roomCounter).getRoomCapacity() == numberOfRequiredBeds) {
 				temporaryList.add(listOfRooms.get(roomCounter));
 			}
 		}
