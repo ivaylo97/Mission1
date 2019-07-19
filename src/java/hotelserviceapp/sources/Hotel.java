@@ -1,4 +1,5 @@
 package hotelserviceapp.sources;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Hotel {
 	 * Initializes the numberOfRooms variable.
 	 */
 
-private 	void InitNumberOfRooms() {
+	private void InitNumberOfRooms() {
 		if (numberOfRooms == -1)
 			numberOfRooms = 0;
 	}
@@ -42,7 +43,7 @@ private 	void InitNumberOfRooms() {
 	/**
 	 * @return Returns the Hotel's name
 	 */
-	 String getHotelName() {
+	String getHotelName() {
 		return hotelName;
 	}
 
@@ -59,8 +60,7 @@ private 	void InitNumberOfRooms() {
 	 * Searches the list of rooms for free ones , if there are any it returns them in an arraylist format.
 	 * If none are free returns null.
 	 *
-	 * @return
-	 * Returns a list of room that have the required number of rooms.
+	 * @return Returns a list of room that have the required number of rooms.
 	 */
 	public List<Rooms> searchForRooms(int numberOfRequiredBeds) {
 		List<Rooms> temporaryList = new ArrayList<>();

@@ -1,4 +1,7 @@
 package hotelserviceapp.sources;
+
+import hotelserviceapp.Support.domain.AbstractExceptionClass;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -10,9 +13,7 @@ public class Manager {
 
 
 	/**
-	 * Returns the manager's name.
-	 *
-	 * @return
+	 * @return Returns the manager's name.
 	 */
 
 	String getManagerName() {
@@ -27,7 +28,7 @@ public class Manager {
 	 * This method takes a Hotel object as a formal parameter which is later used to set the values of the managedHotel
 	 * and the hotelName variables.
 	 *
-	 * @param newHotel
+	 * @param newHotel Represents the hotel that is going to be managed.
 	 */
 	public void setHotel(Hotel newHotel) {
 		if (newHotel != null) {
@@ -50,16 +51,17 @@ public class Manager {
 	 */
 	public int bookRoom(String guestEGN, LocalDate fromDate, LocalDate toDate, int numberOfRequiredBeds, int numberOfDays) {
 		List<Rooms> listOfRooms = managedHotel.searchForRooms(numberOfRequiredBeds);
-		int roomNumber = -1 ;
+
+		int roomNumber = -1;
 
 		if (!listOfRooms.isEmpty()) {
 
-			for (int roomsCounter = 0; roomsCounter < listOfRooms.size(); roomsCounter++) {
-				roomNumber = listOfRooms.get(roomsCounter).createBooking(guestEGN, fromDate, toDate, listOfRooms.get(roomsCounter), numberOfDays);
+			for (Rooms listOfRoom : listOfRooms) {
+				roomNumber = listOfRoom.createBooking(guestEGN, fromDate, toDate, listOfRoom, numberOfDays);
 				if (roomNumber >= 0) {
 					System.out.println("Booking successful!");
-					listOfRooms.get(roomsCounter).maintainRoom(fromDate);
-					return roomNumber ;
+					listOfRoom.maintainRoom(fromDate);
+					return roomNumber;
 				}
 			}
 		} else {

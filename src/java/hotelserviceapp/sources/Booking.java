@@ -1,11 +1,14 @@
 package hotelserviceapp.sources;
 
+import hotelserviceapp.Support.*;
+
+
 import java.time.*;
 import java.util.Set;
 
 public class Booking {
-	static private int totalNumberOfBookings  = 0;
-	private int bookingID ;
+	static private int totalNumberOfBookings = 0;
+	private int bookingID;
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private int numberOfDays;
@@ -14,22 +17,29 @@ public class Booking {
 
 	public Booking() {
 		guestID = "";
-		totalNumberOfBookings ++;
+		totalNumberOfBookings++;
 		bookingID = totalNumberOfBookings;
 	}
+
 
 	public Booking(String EGN, LocalDate newStartDate, LocalDate newEndDate, Rooms roomToBeBooked) {
 		assertAndSetID(EGN);
 		assertAndSetDates(newStartDate, newEndDate);
 		assertRoom(roomToBeBooked);
-		totalNumberOfBookings ++;
+		totalNumberOfBookings++;
 		bookingID = totalNumberOfBookings;
 	}
 
 	/**
+	 * <<<<<<< HEAD:src/java/hotelserviceapp/sources/Booking.java
 	 * This method takes the listed parameters below and uses them to initialize the class' members.
+	 * <p>
+	 * =======
+	 * The method uses it's passed formal parameters ,asserts if they have correct values and then uses them to
+	 * Re-Set the already present and set object members.
+	 * >>>>>>> fe272125d82e7704930e4c9cc8964b9fe361eaf8:src/main/java/hotelserviceapp/sources/Booking.java
 	 *
-	 * @param newGuestID     newGuestID is a string type variable , containing the guest's EGN number.
+	 * @param newGuestID      newGuestID is a string type variable , containing the guest's EGN number.
 	 * @param newStartDate    newStartDate is a LocalDate type variable which contains the requested booking's starting date.
 	 * @param newEndDate      newEndDate is a LocalDate type variable which contains the requested booking's end date .
 	 * @param newBookedRoom   newBookedRoom is an object which represents the room that is being booked.
@@ -65,8 +75,7 @@ public class Booking {
 	/**
 	 * When invoked this method returns the EGN of the guest which owns this booking.
 	 *
-	 * @return
-	 * Returns the EGN of the guest
+	 * @return Returns the EGN of the guest
 	 */
 	public String getGuestID() {
 		return guestID;
@@ -75,7 +84,7 @@ public class Booking {
 	/**
 	 * Returns the number of days variable.
 	 *
-	 * @return
+	 * @return Returns numberOfDays.
 	 */
 	public int getNumberOfDays() {
 		return numberOfDays;
@@ -84,7 +93,7 @@ public class Booking {
 	/**
 	 * Returns the booked room object.
 	 *
-	 * @return
+	 * @return Returns the bookedRoom.
 	 */
 	public Rooms getBookedRoom() {
 		return bookedRoom;
@@ -95,20 +104,14 @@ public class Booking {
 	 *
 	 * @param ID The guest's ID.
 	 */
+
 	private void assertAndSetID(String ID) {
 		if (ID.length() < 10) {
-			System.out.println("ERROR :: Invalid ID !");
-			guestID = "";
-			return;
+			throw new InvalidValueIDException();
 		}
-		if (ID.isEmpty()) {
-			System.out.println("WARNING :: ID Empty String!");
-			return;
-		}
+
 		if (ID == null) {
-			System.out.println("ERROR :: ID is null !");
-			guestID = "";
-			return;
+			throw new NullValueIdException();
 		}
 		guestID = ID;
 	}
@@ -121,24 +124,19 @@ public class Booking {
 	 */
 	private void assertAndSetDates(LocalDate fromDate, LocalDate toDate) {
 		if (fromDate == null) {
-			System.out.println("ERROR :: fromDate has a null value !");
-			return;
+			throw new DateHasNullValueException();
 		}
 		if (toDate == null) {
-			System.out.println("ERROR :: toDate has a null value !");
-			return;
+			throw new DateHasNullValueException();
 		}
 		if (fromDate.isBefore(LocalDate.now())) {
-			System.out.println("ERROR :: Invalid value :: The staring date is before today !");
-			//return;
+			throw new InvalidValuesException();
 		}
 		if (toDate.isBefore(LocalDate.now())) {
-			System.out.println("ERROR :: Invalid value :: The end date is before today !");
-			//return;
+			throw new InvalidValuesException();
 		}
 		if (fromDate.isAfter(toDate)) {
-			System.out.println("ERROR :: Thr starting date is after the end date !");
-			return;
+			throw new InvalidValuesException(fromDate, toDate);
 		}
 		startDate = fromDate;
 		endDate = toDate;
@@ -160,7 +158,15 @@ public class Booking {
 		bookedRoom = roomToBeBooked;
 	}
 
-	public boolean isPresentIn(Set<Booking> bookings){
+
+	/**
+	 * Checks whether the the booking,invoking the method is present in a specified Set.
+	 *
+	 * @param bookings Represents the set of bookings.
+	 * @return Return boolean answer on whether it is present.
+	 */
+
+	public boolean isPresentIn(Set<Booking> bookings) {
 
 		for (Booking booking : bookings) {
 			if (this.hashCode() == booking.hashCode()) {
@@ -173,10 +179,11 @@ public class Booking {
 	@Override
 	public boolean equals(Object compareObject) {
 		if (!(compareObject instanceof Booking)) return false;
-		return this.hashCode() ==compareObject.hashCode();
+		return this.hashCode() == compareObject.hashCode();
 	}
+
 	@Override
-	public int hashCode(){
+	public int hashCode() {
 		return this.bookingID;
 	}
 }

@@ -3,49 +3,46 @@ package hotelserviceapp.hotelCommodities;
 import hotelserviceapp.hotelCommodities.domain.AbstractCommodity;
 
 public class Bed extends AbstractCommodity {
-	private int numberOfPersonas;
-	enum BedTypes{
-		Single,
-		Double,
-		KingSize,
-		Couch,
-	}
-	BedTypes bedType ;
 
-	 public Bed() {
-		initStaticInventoryNumber();
-		StaticInventoryNumber++;
-		inventoryNumber = StaticInventoryNumber;
-		bedType = BedTypes.Single;
+	private int numberOfPersonas;
+
+	public enum BedTypes {
+		SINGLE,
+		DOUBLE,
+		KINGSIZE,
+		COUCH,
+	}
+
+	BedTypes bedType;
+
+	public Bed() {
+		STATICINVENTORYNUMBER++;
+		inventoryNumber = STATICINVENTORYNUMBER;
+		bedType = BedTypes.SINGLE;
 		setNumberOfPersonas();
 	}
 
-	private void setBedType(BedTypes bedType){
-	 	if(bedType != null){
-	 		this.bedType = bedType;
-		}
-	}
-
-	private void setNumberOfPersonas(){
-	 	switch (bedType){
-			case Single:
-			case Couch: {
+	private void setNumberOfPersonas() {
+		switch (bedType) {
+			case SINGLE:
+			case COUCH: {
 				numberOfPersonas = 1;
 				break;
 			}
-			case Double:
-			case KingSize: {
+			case DOUBLE:
+			case KINGSIZE: {
 				numberOfPersonas = 2;
 				break;
 			}
 		}
 	}
+
 	public void setNumberOfPersonas(int numberOfPersons) {
 		this.numberOfPersonas = numberOfPersons;
 	}
 
-	public int getNumberOfPersonas() {
-		return numberOfPersonas;
+	public BedTypes getBedType() {
+		return bedType;
 	}
 
 	public void prepare() {
@@ -56,10 +53,5 @@ public class Bed extends AbstractCommodity {
 	public int hashCode() {
 		return this.inventoryNumber;
 	}
-
-	private void initStaticInventoryNumber() {
-		if (inventoryNumber == 0) {
-			inventoryNumber = 1;
-		}
-	}
 }
+

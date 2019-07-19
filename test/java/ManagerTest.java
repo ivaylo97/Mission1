@@ -1,30 +1,25 @@
-import hotelserviceapp.sources.Manager;
-import hotelserviceapp.sources.Rooms;
-import hotelserviceapp.sources.Hotel;
-
-
+import hotelserviceapp.sources.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 class ManagerTest {
 
-	Manager Ivan;
-	Hotel transylvania;
+	private Manager Ivan;
+	private Hotel transylvania;
 
 	@BeforeEach
-	public void initTestVariables() {
+	void setUp() {
 		Ivan = new Manager();
 		transylvania = new Hotel();
 	}
 
 	@Test
-	void bookRoom() {
+	void testBookRoom() {
 		//given
 		Rooms room101 = new Rooms();
 		Rooms room102 = new Rooms();
@@ -40,9 +35,9 @@ class ManagerTest {
 		transylvania.addNewRoom(1, room102);
 		transylvania.addNewRoom(2, room103);
 
-		Ivan.bookRoom("1111111111", configureDate("2019-07-20"), configureDate("2019-07-25"), 2, 5);
-		Ivan.bookRoom("2222222222", configureDate("2019-07-22"), configureDate("2019-07-23"), 1, 1);
-		Ivan.bookRoom("33333333333", configureDate("2019-07-19"), configureDate("2019-07-21"), 2, 2);
+		Ivan.bookRoom("1111111111", configureDate("2019-08-20"), configureDate("2019-08-25"), 2, 5);
+		Ivan.bookRoom("2222222222", configureDate("2019-08-22"), configureDate("2019-08-23"), 1, 1);
+		Ivan.bookRoom("33333333333", configureDate("2019-08-19"), configureDate("2019-08-21"), 2, 2);
 		//then
 		assertFalse(room101.getBookings().isEmpty());
 		assertTrue(room102.getBookings().isEmpty());
@@ -53,7 +48,7 @@ class ManagerTest {
 
 
 	@Test
-	void unBookRoom() {
+	void testUnBookRoom() {
 		//given
 		String EGN = "1111111111";
 		LocalDate startDate = LocalDate.parse("2001-01-01");

@@ -1,14 +1,13 @@
 package hotelserviceapp.sources;
 
 import hotelserviceapp.hotelCommodities.domain.AbstractCommodity;
-import hotelserviceapp.hotelCommodities.Bed;
-import hotelserviceapp.hotelCommodities.Shower;
-import hotelserviceapp.hotelCommodities.Toilet;
+import hotelserviceapp.hotelCommodities.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
 
 public class Rooms {
 	static private int totalNumberOfRooms = 0;
@@ -41,9 +40,11 @@ public class Rooms {
 	 * @param newMaintenanceDate A Date typed object that represents a date at which the room is under maintenance.
 	 */
 	public void maintainRoom(LocalDate newMaintenanceDate) {
+
 		for (AbstractCommodity commodity : commodities) {
 			commodity.prepare();
 		}
+
 		maintenanceDates.add(newMaintenanceDate);
 	}
 
@@ -65,8 +66,9 @@ public class Rooms {
 		Booking objectToBeBooked = new Booking();
 		Iterator<Booking> temporaryIterator = bookings.iterator();
 		objectToBeBooked.updateRoom(guestEGN, fromDate, toDate, roomToBeBooked, numberOfDays);
-		if(!objectToBeBooked.isPresentIn(bookings)) {
-			if (checkAvailability(objectToBeBooked, temporaryIterator)){
+		if (!objectToBeBooked.isPresentIn(bookings)) {
+			if (checkAvailability(objectToBeBooked, temporaryIterator)) {
+
 				bookings.add(objectToBeBooked);
 				return roomNumber;
 			}
@@ -149,6 +151,7 @@ public class Rooms {
 	 */
 	public void setCommodities(int newNumberOfBeds, int newNumberOfShowers, int newNumberOfToilets) {
 		if(newNumberOfBeds >= 0 && newNumberOfShowers >= 0 && newNumberOfToilets >= 0){
+
 			numberOfBeds = newNumberOfBeds;
 			numberOfShowers = newNumberOfShowers;
 			numberOfToilets = newNumberOfToilets;
@@ -233,7 +236,8 @@ public class Rooms {
 		for (int bedCounter = 0, addFlag = 1; bedCounter < numberOfBeds; addFlag = 1, bedCounter++) {
 			tempIterator = commodities.iterator();
 			Bed newBed = new Bed();
-			if(tempIterator.hasNext()) {
+
+			if (tempIterator.hasNext()) {
 				while (tempIterator.hasNext()) {
 					if (tempIterator.next().equals(newBed)) {
 						addFlag = 0;
@@ -257,7 +261,7 @@ public class Rooms {
 		for (int showerCounter = 0, addFlag = 1; showerCounter < numberOfShowers; addFlag = 1, showerCounter++) {
 			tempIterator = commodities.iterator();
 			Shower newShower = new Shower();
-			if(tempIterator.hasNext()) {
+	if (tempIterator.hasNext()) {
 				while (tempIterator.hasNext()) {
 					if (tempIterator.next().equals(newShower)) {
 						addFlag = 0;
@@ -280,7 +284,8 @@ public class Rooms {
 		for (int showerCounter = 0, addFlag = 1; showerCounter < numberOfToilets; addFlag = 1, showerCounter++) {
 			tempIterator = commodities.iterator();
 			Toilet newToilet = new Toilet();
-			if(tempIterator.hasNext()) {
+
+			if (tempIterator.hasNext()) {
 				while (tempIterator.hasNext()) {
 					if (tempIterator.next().equals(newToilet)) {
 						addFlag = 0;
@@ -294,13 +299,32 @@ public class Rooms {
 		}
 	}
 
+
+	/**
+	 * Calculates the room's capacity but converti
+	 */
+	private void calculateRoomCapacity() {
+		Iterator<AbstractCommodity> tempIterator = commodities.iterator();
+		while (tempIterator.hasNext()) {
+			if (tempIterator.next() instanceof Bed) {
+				Bed.BedTypes bedType = ((Bed) tempIterator.next()).getBedType();
+				if (bedType.equals(Bed.BedTypes.SINGLE)) {
+					numberOfBeds++;
+				} else if (bedType.equals(Bed.BedTypes.DOUBLE)) {
+					numberOfBeds += 2;
+				} else {
+					numberOfBeds += 2;
+				}
+			}
+		}
+	}
+
+
+
 	@Override
 	public boolean equals(Object compareObject) {
 		if (!(compareObject instanceof Rooms)) return false;
 		return this.hashCode() == compareObject.hashCode();
 	}
-	@Override
-	public int hashCode(){
-		return this.roomNumber;
-	}
+
 }

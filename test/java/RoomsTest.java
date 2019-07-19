@@ -1,5 +1,8 @@
+
+
 import hotelserviceapp.sources.Rooms;
 import hotelserviceapp.sources.Booking;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
@@ -8,23 +11,22 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RoomsTest {
+	Rooms testRoom;
 
+	@BeforeEach
+	public void setUp() {
+		testRoom = new Rooms();
+	}
 
 	@Test
-	void initNumberOfRooms() {
-		//given
-		Rooms testRoom ;
-		//when
-		testRoom= new Rooms();
-		//then
+	void testInitNumberOfRooms() {
 		assertTrue(testRoom.getRoomNumber() == 1);
 	}
 
 	@Test
-	void roomMaintenance() {
+	void testRoomMaintenance() {
 		//given
 		LocalDate testMaintenanceDate = LocalDate.parse("2001-01-01");
-		Rooms testRoom = new Rooms();
 		//when
 		testRoom.maintainRoom(testMaintenanceDate);
 		//then
@@ -32,70 +34,65 @@ class RoomsTest {
 	}
 
 	@Test
-	void createBooking() {
+	void testCreateBooking() {
 		//given
 		int testNumberOfDays = 365;
-		Rooms testRoomToBeBooked = new Rooms();
 		LocalDate testStartDate = LocalDate.parse("2001-01-01");
 		LocalDate testEndDate = LocalDate.parse("2002-02-02");
 		String guestEng = "1111111111";
 		//when
-		testRoomToBeBooked.createBooking(guestEng, testStartDate, testEndDate, testRoomToBeBooked, testNumberOfDays);
+		testRoom.createBooking(guestEng, testStartDate, testEndDate, testRoom, testNumberOfDays);
 		//then
-		assertFalse(testRoomToBeBooked.getBookings().isEmpty());
+		assertFalse(testRoom.getBookings().isEmpty());
 	}
 
 	@Test
-	void createBooking1() {
+	void testCreateBooking1() {
 		//given
 		Booking testBooking = new Booking();
-		Rooms testBookRoom = new Rooms();
 		LocalDate testStartDate = LocalDate.parse("2000-02-02");
 		LocalDate testEndDate = LocalDate.parse("2000-02-02");
 		//when
-		testBooking.updateRoom("1111111111", testStartDate, testEndDate, testBookRoom, 1);
-		testBookRoom.createBooking(testBooking);
+		testBooking.updateRoom("1111111111", testStartDate, testEndDate, testRoom, 1);
+		testRoom.createBooking(testBooking);
 		//then
-		assertFalse(testBookRoom.getBookings().isEmpty());
+		assertFalse(testRoom.getBookings().isEmpty());
 	}
 
 	@Test
-	void removeBooking() {
+	void testRemoveBooking() {
 		//given
 		int testNumberOfDays = 365;
-		Rooms testRoomToBeUnbooked = new Rooms();
 		LocalDate testStartDate = LocalDate.parse("2001-01-01");
 		LocalDate testEndDate = LocalDate.parse("2002-02-02");
 		String guestEng = "11111111111";
 		//when
-		testRoomToBeUnbooked.createBooking(guestEng, testStartDate, testEndDate, testRoomToBeUnbooked, testNumberOfDays);
-		testRoomToBeUnbooked.removeBooking(guestEng, testStartDate, testEndDate);
+		testRoom.createBooking(guestEng, testStartDate, testEndDate, testRoom, testNumberOfDays);
+		testRoom.removeBooking(guestEng, testStartDate, testEndDate);
 		//then
-		assertTrue(testRoomToBeUnbooked.getBookings().isEmpty());
+		assertTrue(testRoom.getBookings().isEmpty());
 	}
 
 	@Test
-	void removeAllBookings() {
+	void testRemoveAllBookings() {
 		//given
 		Booking testBooking = new Booking();
-		Rooms testBookRoom = new Rooms();
 		LocalDate testStartDate = LocalDate.parse("2000-02-02");
 		LocalDate testEndDate = LocalDate.parse("2000-02-02");
 		//when
-		testBooking.updateRoom("1111111111", testStartDate, testEndDate, testBookRoom, 1);
-		testBookRoom.createBooking(testBooking);
-		testBookRoom.removeAllBookings();
+		testBooking.updateRoom("1111111111", testStartDate, testEndDate, testRoom, 1);
+		testRoom.createBooking(testBooking);
+		testRoom.removeAllBookings();
 		//then
-		assertTrue(testBookRoom.getBookings().isEmpty());
+		assertTrue(testRoom.getBookings().isEmpty());
 	}
 
 	@Test
-	void setCommodities() {
+	void testSetCommodities() {
 		//given
 		int numberOfBeds = 1;
 		int numberOfToilets = 3;
 		int numberOfShowers = 3;
-		Rooms testRoom = new Rooms();
 		//when
 		testRoom.setCommodities(numberOfBeds, numberOfShowers, numberOfToilets);
 		//then
