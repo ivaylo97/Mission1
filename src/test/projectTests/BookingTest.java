@@ -26,5 +26,12 @@ class BookingTest {
 		assertTrue(testBookRoom.equals(testBooking.getBookedRoom()));
 
 	}
+	@Test
+	void assertRoom() {
+	}
+
+	@Test
+	void isPresentIn() {
+	}
 }
 

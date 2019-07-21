@@ -1,37 +1,38 @@
 package hotelserviceapp.hotelCommodities;
 
 import hotelserviceapp.hotelCommodities.BedTypes.BedTypes;
+import hotelserviceapp.hotelCommodities.domain.AbstractCommodity;
 
 public class Bed extends AbstractCommodity {
 
-	private BedTypes.BedType bedType;
+	private BedTypes bedType;
 	private boolean isDeployed;
 
 	public Bed(String bedType) {
 		initStaticInventoryNumber();
-		STATICINVENTORYNUMBER++;
-		inventoryNumber = STATICINVENTORYNUMBER;
-		this.bedType = BedTypes.BedType.valueOf(bedType.toUpperCase());
+		STATIC_INVENTORY_NUMBER++;
+		inventoryNumber = STATIC_INVENTORY_NUMBER;
+		this.bedType = BedTypes.valueOf(bedType.toUpperCase());
 	}
 
-	public Bed(BedTypes.BedType bedType) {
+	public Bed(BedTypes bedType) {
 		initStaticInventoryNumber();
-		STATICINVENTORYNUMBER++;
-		inventoryNumber = STATICINVENTORYNUMBER;
+		STATIC_INVENTORY_NUMBER++;
+		inventoryNumber = STATIC_INVENTORY_NUMBER;
 		this.bedType = bedType;
 	}
 
 	public Bed() {
 		initStaticInventoryNumber();
-		STATICINVENTORYNUMBER++;
-		inventoryNumber = STATICINVENTORYNUMBER;
-		bedType = BedTypes.BedType.valueOf("SINGLE");
+		STATIC_INVENTORY_NUMBER++;
+		inventoryNumber = STATIC_INVENTORY_NUMBER;
+		bedType = BedTypes.valueOf("SINGLE");
 	}
 
 	/**
 	 * @return Returns the current bed's bed type.
 	 */
-	public BedTypes.BedType getBedType() {
+	public BedTypes getBedType() {
 		return bedType;
 	}
 

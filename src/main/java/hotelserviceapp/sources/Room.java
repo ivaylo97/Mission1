@@ -4,6 +4,7 @@ package hotelserviceapp.sources;
 import hotelserviceapp.Support.*;
 import hotelserviceapp.hotelCommodities.*;
 import hotelserviceapp.hotelCommodities.BedTypes.BedTypes;
+import hotelserviceapp.hotelCommodities.domain.AbstractCommodity;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -11,7 +12,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class Room {
-	static private int totalNumberOfRooms = 0;
+	static private int TOTAL_NUMBER_OF_ROOMS = 0;
 	private int roomNumber;
 	private int roomCapacity;
 	private int numberOfShowers;
@@ -27,8 +28,8 @@ public class Room {
 		commodities = new HashSet<>();
 		maintenanceDates = new HashSet<>();
 		bookings = new HashSet<>();
-		totalNumberOfRooms++;
-		roomNumber = totalNumberOfRooms;
+		TOTAL_NUMBER_OF_ROOMS++;
+		roomNumber = TOTAL_NUMBER_OF_ROOMS;
 	}
 
 	public int getRoomNumber() {
@@ -122,7 +123,7 @@ public class Room {
 	 * @param newNumberOfToilets An int type variable , used to set the number of toilets present in the room , also to to add that number of
 	 *                           toilets into the commodities set.
 	 */
-	public void setCommodities(int newNumberOfBeds, BedTypes.BedType bedType, int newNumberOfShowers, int newNumberOfToilets) {
+	public void setCommodities(int newNumberOfBeds, BedTypes bedType, int newNumberOfShowers, int newNumberOfToilets) {
 		addBeds(newNumberOfBeds, bedType);
 		addShowers(newNumberOfShowers);
 		addToilets(newNumberOfToilets);
@@ -204,21 +205,17 @@ public class Room {
 	/**
 	 * Adds as much beds as specified in the numberOfBedsToAdd variable,of the specified type.
 	 */
-	public void addBeds(int numberOfBedsToAdd, BedTypes.BedType bedType) {
+	public void addBeds(int numberOfBedsToAdd, BedTypes bedType) {
 		Bed newBed;
 		if (bedType == null) {
-			bedType = BedTypes.BedType.SINGLE;
+			bedType = BedTypes.SINGLE;
 		}
 		for (int bedCounter = 0; bedCounter < numberOfBedsToAdd; bedCounter++) {
 			newBed = new Bed(bedType.toString());
 			if (!commodities.contains(newBed)) {
 				commodities.add(newBed);
 				newBed.deployBed();
-				if (newBed.getBedType() == BedTypes.BedType.SINGLE) {
-					roomCapacity++;
-				} else {
-					roomCapacity += 2;
-				}
+				roomCapacity += bedType.getBedCapacity();
 			}
 		}
 	}

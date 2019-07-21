@@ -1,7 +1,7 @@
-package hotelserviceapp.hotelCommodities;
+package hotelserviceapp.hotelCommodities.domain;
 
 public abstract class AbstractCommodity {
-	protected static int STATICINVENTORYNUMBER;
+	protected static int STATIC_INVENTORY_NUMBER;
 	protected int inventoryNumber;
 
 	public abstract void prepare();

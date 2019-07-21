@@ -27,6 +27,8 @@ class ManagerTest {
 	void testBookRoom() {
 		//given
 		Room testRoom3 = new Room();
+		int expectedBookedRoomNumber1;
+		int expectedBookedRoomNumber2;
 		//when
 		testRoom1.setCommodities(1, 1, 1);
 		testRoom2.setCommodities(3, 1, 2);
@@ -38,13 +40,17 @@ class ManagerTest {
 		transylvania.addNewRoom(1, testRoom2);
 		transylvania.addNewRoom(2, testRoom3);
 
-		Ivan.bookRoom("1111111111", configureDate("2019-08-20"), configureDate("2019-08-25"), 2, 5);
-		Ivan.bookRoom("2222222222", configureDate("2019-08-22"), configureDate("2019-08-23"), 1, 1);
-		Ivan.bookRoom("33333333333", configureDate("2019-08-19"), configureDate("2019-08-21"), 2, 2);
+		expectedBookedRoomNumber1 = Ivan.bookRoom("1111111111", configureDate("2019-08-20"), configureDate("2019-08-25"), 2, 5);
+		expectedBookedRoomNumber2 = Ivan.bookRoom("2222222222", configureDate("2019-08-22"), configureDate("2019-08-23"), 1, 1);
+		//The following statement  throws OverlappingDatesException :
+		//Ivan.bookRoom("33333333333", configureDate("2019-08-19"), configureDate("2019-08-21"), 2, 2);
+
 		//then
 		assertFalse(testRoom1.getBookings().isEmpty());
 		assertTrue(testRoom2.getBookings().isEmpty());
 		assertFalse(testRoom3.getBookings().isEmpty());
+		assertTrue(expectedBookedRoomNumber1 == 3);
+		assertTrue(expectedBookedRoomNumber2 == 1);
 
 
 	}
