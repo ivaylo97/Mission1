@@ -5,8 +5,8 @@ import hotelserviceapp.hotelCommodities.domain.AbstractCommodity;
 public class Toilet extends AbstractCommodity {
 	public Toilet() {
 		initStaticInventoryNumber();
-		STATICINVENTORYNUMBER++;
-		inventoryNumber = STATICINVENTORYNUMBER;
+		STATIC_INVENTORY_NUMBER++;
+		inventoryNumber = STATIC_INVENTORY_NUMBER;
 	}
 
 	public void prepare() {

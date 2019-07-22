@@ -1,6 +1,6 @@
+package projectTests;
 
-
-import hotelserviceapp.sources.Rooms;
+import hotelserviceapp.sources.Room;
 import hotelserviceapp.sources.Hotel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,14 +11,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class HotelTest {
 
 	Hotel testHotel;
-	Rooms testRoom1;
-	Rooms testRoom2;
+	Room testRoom1;
+	Room testRoom2;
 
 	@BeforeEach
 	public void setUp() {
 		testHotel = new Hotel();
-		testRoom1 = new Rooms();
-		testRoom2 = new Rooms();
+		testRoom1 = new Room();
+		testRoom2 = new Room();
 	}
 
 	@Test

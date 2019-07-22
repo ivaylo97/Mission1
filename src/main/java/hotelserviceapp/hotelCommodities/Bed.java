@@ -1,26 +1,47 @@
 package hotelserviceapp.hotelCommodities;
 
+import hotelserviceapp.hotelCommodities.BedTypes.BedTypes;
 import hotelserviceapp.hotelCommodities.domain.AbstractCommodity;
 
 public class Bed extends AbstractCommodity {
 
-	public enum BedTypes{
-		SINGLE,
-		DOUBLE,
-		KING_SIZE,
-		COUCH,
-	}
-	private BedTypes bedType ;
+	private BedTypes bedType;
+	private boolean isDeployed;
 
-	 public Bed() {
+	public Bed(String bedType) {
 		initStaticInventoryNumber();
-		STATICINVENTORYNUMBER++;
-		inventoryNumber = STATICINVENTORYNUMBER;
-		bedType = BedTypes.SINGLE;
+		STATIC_INVENTORY_NUMBER++;
+		inventoryNumber = STATIC_INVENTORY_NUMBER;
+		this.bedType = BedTypes.valueOf(bedType.toUpperCase());
 	}
 
-	public BedTypes getBedType(){
-	 	return bedType;
+	public Bed(BedTypes bedType) {
+		initStaticInventoryNumber();
+		STATIC_INVENTORY_NUMBER++;
+		inventoryNumber = STATIC_INVENTORY_NUMBER;
+		this.bedType = bedType;
+	}
+
+	public Bed() {
+		initStaticInventoryNumber();
+		STATIC_INVENTORY_NUMBER++;
+		inventoryNumber = STATIC_INVENTORY_NUMBER;
+		bedType = BedTypes.valueOf("SINGLE");
+	}
+
+	/**
+	 * @return Returns the current bed's bed type.
+	 */
+	public BedTypes getBedType() {
+		return bedType;
+	}
+
+	/**
+	 * isDeployed is a boolean variable that acts as an indicator whether the bed is already deployed in a room.
+	 * This method is used to set it to true.
+	 */
+	public void deployBed() {
+		isDeployed = true;
 	}
 
 	public void prepare() {

@@ -1,5 +1,6 @@
+package projectTests;
 
-import hotelserviceapp.sources.Rooms;
+import hotelserviceapp.sources.Room;
 import hotelserviceapp.sources.Booking;
 import org.junit.jupiter.api.Test;
 
@@ -13,17 +14,24 @@ class BookingTest {
 	void testUpdateRoom() {
 		//given
 		Booking testBooking = new Booking();
-		Rooms testBookRoom = new Rooms();
-		LocalDate testStartDate = LocalDate.parse("2000-02-02");
-		LocalDate testEndDate = LocalDate.parse("2000-02-02");
+		Room testBookRoom = new Room();
+		LocalDate testStartDate = LocalDate.parse("2020-02-02");
+		LocalDate testEndDate = LocalDate.parse("2020-02-02");
 		//when
-		testBooking.updateRoom("test", testStartDate, testEndDate, testBookRoom, 1);
-        //then
-		assertTrue("test".equals(testBooking.getGuestID()));
+		testBooking.updateRoom("1111111111", testStartDate, testEndDate, testBookRoom, 1);
+		//then
+		assertTrue("1111111111".equals(testBooking.getGuestId()));
 		assertTrue(testStartDate.equals(testBooking.getStartDate()));
 		assertTrue(testEndDate.equals(testBooking.getEndDate()));
 		assertTrue(testBookRoom.equals(testBooking.getBookedRoom()));
 
+	}
+	@Test
+	void assertRoom() {
+	}
+
+	@Test
+	void isPresentIn() {
 	}
 }
 
