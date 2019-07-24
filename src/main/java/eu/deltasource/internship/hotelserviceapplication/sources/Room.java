@@ -1,6 +1,5 @@
 package eu.deltasource.internship.hotelserviceapplication.sources;
 
-
 import eu.deltasource.internship.hotelserviceapplication.Support.*;
 import eu.deltasource.internship.hotelserviceapplication.Support.DateExceptions.OverlappingDateException;
 import eu.deltasource.internship.hotelserviceapplication.hotelCommodities.*;
@@ -96,9 +95,9 @@ public class Room {
 	 */
 	public void removeBooking(String guestId, LocalDate fromDate, LocalDate toDate) {
 		if (guestId == null) {
-			throw  new ObjectHasNullValueException("guestID has null value !");
+			throw new ObjectHasNullValueException("guestID has null value !");
 		}
-		if(fromDate == null || toDate == null){
+		if (fromDate == null || toDate == null) {
 			throw new ObjectHasNullValueException("from/to date has null value !");
 		}
 		for (Booking book : bookings) {
@@ -245,47 +244,46 @@ public class Room {
 		roomOwnerHotel = hotel;
 	}
 
-	/**
-	 * Adds a commodity to the room's set of commodities.
-	 *
-	 * @param commodity Represents the commodity that we want to add to the room.
-	 */
-
-	public void addCommodity(AbstractCommodity commodity) {
-		if (commodity == null) {
-			throw new ObjectHasNullValueException("commodity has null value !");
-		}
-		if (commodities.contains(commodity)) {
-			throw new ObjectIsAlreadyPresentException("The commodity is already present inside the commodities set.");
-		}
-		if (commodity instanceof Bed) {
-			if (!((Bed) commodity).isDeployed()) {
-				((Bed) commodity).deployBed();
-				roomCapacity += ((Bed) commodity).getBedType().getBedCapacity();
+		/**
+		 * Adds a commodity to the room's set of commodities.
+		 *
+		 * @param commodity Represents the commodity that we want to add to the room.
+		 */
+		public void addCommodity (AbstractCommodity commodity){
+			if (commodity == null) {
+				throw new ObjectHasNullValueException("commodity has null value !");
 			}
+			if (commodities.contains(commodity)) {
+				throw new ObjectIsAlreadyPresentException("The commodity is already present inside the commodities set.");
+			}
+			if (commodity instanceof Bed) {
+				if (!((Bed) commodity).isDeployed()) {
+					((Bed) commodity).deployBed();
+					roomCapacity += ((Bed) commodity).getBedType().getBedCapacity();
+				}
+			}
+			commodities.add(commodity);
+			updateHotelInventory(commodity);
 		}
-		commodities.add(commodity);
-		updateHotelInventory(commodity);
-	}
 
-	/**
-	 * Updates the inventory of the hotel where the room is present
-	 *
-	 * @param commodity - Represents the commodity ,which is to be added to the inventory.
-	 */
-	public void updateHotelInventory(AbstractCommodity commodity) {
-		roomOwnerHotel.getInventory().add(commodity);
-	}
+		/**
+		 * Updates the inventory of the hotel where the room is present
+		 *
+		 * @param commodity - Represents the commodity ,which is to be added to the inventory.
+		 */
+		public void updateHotelInventory (AbstractCommodity commodity){
+			roomOwnerHotel.getInventory().add(commodity);
+		}
 
 
-	@Override
-	public boolean equals(Object compareObject) {
-		if (!(compareObject instanceof Room)) return false;
-		return this.roomNumber == ((Room) compareObject).roomNumber;
-	}
+		@Override
+		public boolean equals (Object compareObject){
+			if (!(compareObject instanceof Room)) return false;
+			return this.roomNumber == ((Room) compareObject).roomNumber;
+		}
 
-	@Override
-	public int hashCode() {
-		return this.roomNumber;
+		@Override
+		public int hashCode () {
+			return this.roomNumber;
+		}
 	}
-}

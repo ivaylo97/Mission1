@@ -9,5 +9,6 @@ import eu.deltasource.internship.hotelserviceapplication.Support.domain.CustomAb
 public class OverlappingDateException extends CustomAbstractException {
 	public OverlappingDateException(String message) {
 		super(message);
+
 	}
 }

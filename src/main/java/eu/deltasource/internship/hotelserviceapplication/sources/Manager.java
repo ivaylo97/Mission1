@@ -1,6 +1,7 @@
 package eu.deltasource.internship.hotelserviceapplication.sources;
 
 import eu.deltasource.internship.hotelserviceapplication.Support.*;
+import eu.deltasource.internship.hotelserviceapplication.Support.BookingExceptions.UnbookingFailureException;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -17,8 +18,13 @@ public class Manager {
 	 * A private default constructor , used to prevent the creation of Manager objects
 	 * without the mandatory data.
 	 */
-	private Manager() {}
+	private Manager() {
+	}
 
+	/**
+	 * A constructor taking a string as a formal parameter and using it to set the manager's name.
+	 * @param managerName
+	 */
 	public Manager(String managerName){
 		this.managerName = managerName;
 	}
@@ -45,7 +51,7 @@ public class Manager {
 	 */
 	public void setHotel(Hotel newHotel) {
 		if (newHotel == null) {
-			throw new ObjectHasNullValueException("newHotel has null value !");
+			throw new NullObjectException("newHotel has null value !");
 		}
 		managedHotel = newHotel;
 	}
@@ -73,8 +79,6 @@ public class Manager {
 					System.out.println("Booking successful!");
 					room.maintainRoom(fromDate);
 					return roomNumber;
-				} else{
-					throw  new BookingFailureException("CreateBooking failed !");
 				}
 			}
 		}
@@ -82,12 +86,10 @@ public class Manager {
 	}
 
 	/**
-	 * A boolean returning method , responsible for the unbooking of a specific - user pointed out room.
-	 *
+	 * A method responsible for the unbooking of a specific - user pointed out room.
 	 * @param guestEGN Contains the guest eng in a string format.
 	 * @param fromDate Represent sought booking's starting date.
 	 * @param toDate   Represents the sought booking's end date.
-	 * @return Returns TRUE on success and FALSE if the rooms hasn't been found.
 	 */
 	public void unBookRoom(String guestEGN, LocalDate fromDate, LocalDate toDate) {
 		List<Room> listOfRooms = managedHotel.getListOfRooms();

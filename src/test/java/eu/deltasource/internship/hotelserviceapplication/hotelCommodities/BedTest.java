@@ -1,5 +1,6 @@
 package eu.deltasource.internship.hotelserviceapplication.hotelCommodities;
 
+
 import eu.deltasource.internship.hotelserviceapplication.hotelCommodities.BedTypes.BedTypes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ class BedTest {
 	@BeforeEach
 	public void setUp(){
 		testBed = new Bed(BedTypes.SINGLE);
+
 	}
 
 	@Test

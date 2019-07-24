@@ -3,7 +3,6 @@ package eu.deltasource.internship.hotelserviceapplication.sources;
 import eu.deltasource.internship.hotelserviceapplication.Support.EmptyStringException;
 import eu.deltasource.internship.hotelserviceapplication.Support.ObjectHasNullValueException;
 import eu.deltasource.internship.hotelserviceapplication.hotelCommodities.domain.AbstractCommodity;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -53,6 +52,7 @@ public class Hotel {
 	 */
 	public void addNewRoom(Room newRoom) {
 		if (newRoom == null) {
+
 			throw new ObjectHasNullValueException("newRoom has null value.");
 		}
 		newRoom.setRoomNumber(listOfRooms.size() + 1);

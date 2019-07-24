@@ -1,5 +1,6 @@
 package eu.deltasource.internship.hotelserviceapplication.Support.domain;
 
+
 /**
  * This class extends the RuntimeException class , and acts as a base class to all of the
  * projects' custom exceptions.

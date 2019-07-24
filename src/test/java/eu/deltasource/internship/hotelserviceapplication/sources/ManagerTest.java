@@ -19,6 +19,7 @@ class ManagerTest {
 
 	@BeforeEach
 	void setUp() {
+
 		Ivan = new Manager("Ivan");
 		testHotel = new Hotel("testHotel");
 		testRoom1 = new Room();
@@ -39,7 +40,6 @@ class ManagerTest {
 		testRoom2.setCommodities(3, BedTypes.SINGLE, 1, 2);
 		testRoom3.setCommodities(2, BedTypes.SINGLE, 2, 2);
 
-
 		testHotel.setHotelName("testHotel");
 		Ivan.setHotel(testHotel);
 		testHotel.addNewRoom(testRoom1);
@@ -55,13 +55,14 @@ class ManagerTest {
 		});
 		assertThrows(RuntimeException.class, () -> {
 			Ivan.bookRoom("33333333333", configureDate("2019-08-19"), configureDate("2019-08-28"), 2);
+
 		});
 		assertFalse(testRoom1.getBookings().isEmpty());
 		assertTrue(testRoom2.getBookings().isEmpty());
 		assertFalse(testRoom3.getBookings().isEmpty());
+
 		assertEquals(3, expectedBookedRoomNumber1);
 		assertEquals(1, expectedBookedRoomNumber2);
-
 
 	}
 
@@ -84,6 +85,7 @@ class ManagerTest {
 		Ivan.setHotel(testHotel);
 		//when + then
 		assertThrows(RuntimeException.class, () -> {
+
 			Ivan.bookRoom("peter-id11", configureDate("2020-01-01"), configureDate("2020-01-02"), 2);
 		});
 	}
@@ -98,7 +100,6 @@ class ManagerTest {
 		assertThrows(RuntimeException.class, () -> {
 			Ivan.bookRoom("peter-id11", configureDate("2020-01-01"), configureDate("2020-01-02"), 2);
 		});
-
 	}
 
 
@@ -111,7 +112,6 @@ class ManagerTest {
 		int numberOfRequiredBeds = 3;
 		Manager Ivan = new Manager("Ivan");
 		Hotel transylvania = new Hotel("Ivan's Hotel");
-
 
 		//when
 		testRoom1.setCommodities(3, BedTypes.SINGLE, 1, 1);

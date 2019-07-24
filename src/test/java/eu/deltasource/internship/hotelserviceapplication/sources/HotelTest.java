@@ -16,6 +16,7 @@ class HotelTest {
 
 	@BeforeEach
 	public void setUp() {
+
 		testHotel = new Hotel("testHotel");
 		testRoom1 = new Room();
 		testRoom2 = new Room();

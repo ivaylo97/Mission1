@@ -21,12 +21,14 @@ class BookingTest {
 
 	@Test
 	void testUpdateBooking() {
+
 		//given
 		Hotel testHotel = new Hotel("TestHotel");
 
 		Room testBookRoom = new Room();
 		testHotel.addNewRoom(testBookRoom);
 		LocalDate testStartDate = LocalDate.parse("2020-02-02");
+
 		LocalDate testEndDate = LocalDate.parse("2020-02-03");
 		Booking testBooking = new Booking("1111111111", testStartDate, testEndDate);
 
@@ -34,6 +36,7 @@ class BookingTest {
 		assertTrue("1111111111".equals(testBooking.getGuestId()));
 		assertTrue(testStartDate.equals(testBooking.getStartDate()));
 		assertTrue(testEndDate.equals(testBooking.getEndDate()));
+
 		assertThrows(RuntimeException.class,()->{
 			testBooking.updateBooking(null,testStartDate,testEndDate);
 		});
@@ -52,6 +55,7 @@ class BookingTest {
 		assertThrows(RuntimeException.class,()->{
 			testBooking.updateBooking("1234567890",testStartDate,LocalDate.parse("1997-01-01"));
 		});
+
 	}
 
 	@Test
