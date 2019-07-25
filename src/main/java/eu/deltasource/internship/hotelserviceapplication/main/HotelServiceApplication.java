@@ -1,5 +1,4 @@
 package eu.deltasource.internship.hotelserviceapplication.main;
-
 import java.time.LocalDate;
 
 public class HotelServiceApplication {

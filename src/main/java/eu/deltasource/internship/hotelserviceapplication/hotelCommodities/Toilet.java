@@ -2,14 +2,11 @@ package eu.deltasource.internship.hotelserviceapplication.hotelCommodities;
 
 import eu.deltasource.internship.hotelserviceapplication.hotelCommodities.domain.AbstractCommodity;
 
-
-
-// see {@inheritDoc}
 /**
- * One of the inheritors of the AbstractCommodity class ,representing the Bed commodity.
- * Uses only inherited member from the base class.
+ *{@inheritDoc}
  */
 public class Toilet extends AbstractCommodity {
+	private static int STATIC_INVENTORY_NUMBER;
 
 	/**
 	 * A constructor of the Shower class.
@@ -28,5 +25,12 @@ public class Toilet extends AbstractCommodity {
 	 */
 	public void prepare() {
 		System.out.println("The toilet is being cleaned.");
+	}
+
+	@Override
+	public boolean equals(Object compareObject) {
+		if (!(compareObject instanceof Toilet)) return false;
+		Toilet temporaryCommodity = (Toilet) compareObject;
+		return this.inventoryNumber == temporaryCommodity.inventoryNumber;
 	}
 }

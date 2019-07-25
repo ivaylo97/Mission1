@@ -1,5 +1,6 @@
 package eu.deltasource.internship.hotelserviceapplication.sources;
 
+import eu.deltasource.internship.hotelserviceapplication.hotelCommodities.Bed;
 import eu.deltasource.internship.hotelserviceapplication.hotelCommodities.BedTypes.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,6 +26,7 @@ class HotelTest {
 
 	@Test
 	void testSetHotelName() {
+		//when + then
 		assertThrows(RuntimeException.class, () -> {
 			testHotel.setHotelName("");
 		});
@@ -34,7 +36,6 @@ class HotelTest {
 	void testAddNewRoom() {
 		//given
 		Room nullRoom = null;
-		int idx = 0;
 		//when
 		testHotel.addNewRoom(testRoom1);
 		//then
@@ -47,8 +48,6 @@ class HotelTest {
 	@Test
 	void testSearchForRooms() {
 		//given
-		testRoom1.setRoomOwnerHotel(testHotel);
-		testRoom2.setRoomOwnerHotel(testHotel);
 		testRoom1.setCommodities(3, BedTypes.SINGLE, 0, 0);
 		testRoom2.setCommodities(2, BedTypes.SINGLE, 0, 0);
 		//when
@@ -56,7 +55,20 @@ class HotelTest {
 		testHotel.addNewRoom( testRoom2);
 		//then
 		assertFalse(testHotel.searchForRooms(3).isEmpty());
-		assertTrue(testHotel.searchForRooms(3).size() == 1);
+		assertEquals(1, testHotel.searchForRooms(3).size());
+
+	}
+
+	@Test
+	void testAddCommodityToRoom() {
+		//given
+		Hotel testHotel = new Hotel("testHotel");
+		Bed newBed = new Bed(BedTypes.SINGLE);
+		testHotel.addNewRoom(testRoom1);
+		//when
+		testHotel.AddCommodityToRoom(newBed,testRoom1.getRoomNumber());
+		//then
+		assertTrue(testHotel.getInventory().contains(newBed));
 
 	}
 }

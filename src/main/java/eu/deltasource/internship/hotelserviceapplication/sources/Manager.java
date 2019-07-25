@@ -1,13 +1,16 @@
 package eu.deltasource.internship.hotelserviceapplication.sources;
 
 import eu.deltasource.internship.hotelserviceapplication.Support.*;
-import eu.deltasource.internship.hotelserviceapplication.Support.BookingExceptions.UnbookingFailureException;
 
 import java.time.LocalDate;
 import java.util.*;
 
 /**
+ * The Manager class has two private members :
+ * managerName - A String type variable used to store the current manager's name.
  *
+ * managedHotel - An object of the Hotel class.It represents the hotel that is being managed
+ * by the current manager.
  */
 public class Manager {
 
@@ -23,9 +26,10 @@ public class Manager {
 
 	/**
 	 * A constructor taking a string as a formal parameter and using it to set the manager's name.
-	 * @param managerName
+	 *
+	 * @param managerName - Represents the name that is to me assigned to the manager.
 	 */
-	public Manager(String managerName){
+	public Manager(String managerName) {
 		this.managerName = managerName;
 	}
 
@@ -35,6 +39,14 @@ public class Manager {
 	String getManagerName() {
 		return managerName;
 	}
+
+	/**
+	 * @return Returns the managed hotel.
+	 */
+	public Hotel getManagedHotel() {
+		return managedHotel;
+	}
+
 
 	void setManagerName(String newManagerName) {
 		if (newManagerName.equals("")) {
@@ -51,7 +63,7 @@ public class Manager {
 	 */
 	public void setHotel(Hotel newHotel) {
 		if (newHotel == null) {
-			throw new NullObjectException("newHotel has null value !");
+			throw new ObjectHasNullValueException("newHotel has null value !");
 		}
 		managedHotel = newHotel;
 	}
@@ -67,7 +79,7 @@ public class Manager {
 	 * @param requiredCapacity int - represents the number of required beds from the guest.
 	 * @return Returns boolean answer on whether the booking was successful.
 	 */
-	public int bookRoom(String guestEGN, LocalDate fromDate, LocalDate toDate, int requiredCapacity) {
+	int bookRoom(String guestEGN, LocalDate fromDate, LocalDate toDate, int requiredCapacity) {
 		List<Room> listOfRooms = managedHotel.searchForRooms(requiredCapacity);
 		int roomNumber;
 
@@ -87,22 +99,20 @@ public class Manager {
 
 	/**
 	 * A method responsible for the unbooking of a specific - user pointed out room.
+	 *
 	 * @param guestEGN Contains the guest eng in a string format.
 	 * @param fromDate Represent sought booking's starting date.
 	 * @param toDate   Represents the sought booking's end date.
 	 */
-	public void unBookRoom(String guestEGN, LocalDate fromDate, LocalDate toDate) {
+	void unBookRoom(String guestEGN, LocalDate fromDate, LocalDate toDate,int roomNumber) {
 		List<Room> listOfRooms = managedHotel.getListOfRooms();
 		int numberOfRooms = managedHotel.getNumberOfRooms();
 		Room room;
-
-		for (int roomsCounter = 0; roomsCounter < numberOfRooms; roomsCounter++) {
-			room = listOfRooms.get(roomsCounter);
+		if(roomNumber > numberOfRooms){
+			throw new InvalidValueException("roomNumber is greater than the number of present rooms");
+		}
+			room = listOfRooms.get(roomNumber);
 			room.removeBooking(guestEGN, fromDate, toDate);
 			room.maintainRoom(toDate);
-		}
-	}
-	public Hotel getManagedHotel() {
-		return managedHotel;
 	}
 }

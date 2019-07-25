@@ -24,8 +24,8 @@ class ManagerTest {
 		testHotel = new Hotel("testHotel");
 		testRoom1 = new Room();
 		testRoom2 = new Room();
-		testRoom1.setRoomOwnerHotel(testHotel);
-		testRoom2.setRoomOwnerHotel(testHotel);
+
+
 	}
 
 	@Test
@@ -34,7 +34,6 @@ class ManagerTest {
 		Room testRoom3 = new Room();
 		int expectedBookedRoomNumber1;
 		int expectedBookedRoomNumber2;
-		testRoom3.setRoomOwnerHotel(testHotel);
 		//when
 		testRoom1.setCommodities(1, BedTypes.SINGLE, 1, 1);
 		testRoom2.setCommodities(3, BedTypes.SINGLE, 1, 2);

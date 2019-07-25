@@ -4,7 +4,7 @@ import eu.deltasource.internship.hotelserviceapplication.hotelCommodities.BedTyp
 import eu.deltasource.internship.hotelserviceapplication.hotelCommodities.domain.AbstractCommodity;
 
 /**
- * One of the inheritors of the AbstractCommodity class ,representing the Bed commodity.
+ * {@inheritDoc}
  * It has 2 private members :
  * bedType -  a BedTypes variable that is used to point out the current bed's type,
  * for example : single , double etc.
@@ -13,16 +13,19 @@ import eu.deltasource.internship.hotelserviceapplication.hotelCommodities.domain
 public class Bed extends AbstractCommodity {
 
 	private BedTypes bedType;
+	private static int STATIC_INVENTORY_NUMBER;
 	private boolean isInUse;
 
 	/**
 	 * A private default constructor - used to prevent creating a Bed object without a specified bed type.
 	 */
-	private Bed(){ }
+	private Bed() {
+	}
 
 	/**
 	 * One of the constructors of the Bed class.
 	 * Takes a BedTypes variable as a formal parameter.
+	 *
 	 * @param bedType - Represents the bed type that will be forced onto the created Bed object.
 	 */
 	public Bed(BedTypes bedType) {
@@ -66,5 +69,12 @@ public class Bed extends AbstractCommodity {
 	 */
 	public void prepare() {
 		System.out.println("The bed sheets are being replaced.");
+	}
+
+	@Override
+	public boolean equals(Object compareObject) {
+		if (!(compareObject instanceof Bed)) return false;
+		Bed temporaryCommodity = (Bed) compareObject;
+		return this.inventoryNumber == temporaryCommodity.inventoryNumber;
 	}
 }

@@ -1,6 +1,7 @@
 package eu.deltasource.internship.hotelserviceapplication.sources;
 
 import eu.deltasource.internship.hotelserviceapplication.Support.*;
+
 import java.time.*;
 import java.util.Set;
 
@@ -25,14 +26,16 @@ public class Booking {
 	 * A private default constructor, used to prevent the creation of bookings without the
 	 * mandatory information ,required for it.
 	 */
-	private Booking(){}
+	private Booking() {
+	}
 
 	/**
 	 * A constructor of the Booking class,takes a String and two LocalDate typed variables as formal
 	 * parameters.
-	 * @param guestID - Represents ID of the guest who requests the booking.
+	 *
+	 * @param guestID      - Represents ID of the guest who requests the booking.
 	 * @param newStartDate - Represents the date that is to be the booking's start date.
-	 * @param newEndDate - Represents the date that is to bethe booking's end date
+	 * @param newEndDate   - Represents the date that is to bethe booking's end date
 	 */
 	public Booking(String guestID, LocalDate newStartDate, LocalDate newEndDate) {
 		assertAndSetID(guestID);
@@ -45,11 +48,11 @@ public class Booking {
 	 * The method uses it's passed formal parameters ,asserts if they have correct values and then uses them to
 	 * Re-Set the already present and set object members.
 	 *
-	 * @param newGuestID      newGuestID is a string type variable , containing the guest's EGN number.
-	 * @param newStartDate    newStartDate is a LocalDate type variable which contains the requested booking's starting date.
-	 * @param newEndDate      newEndDate is a LocalDate type variable which contains the requested booking's end date .
+	 * @param newGuestID   newGuestID is a string type variable , containing the guest's EGN number.
+	 * @param newStartDate newStartDate is a LocalDate type variable which contains the requested booking's starting date.
+	 * @param newEndDate   newEndDate is a LocalDate type variable which contains the requested booking's end date .
 	 */
-	public void updateBooking(String newGuestID, LocalDate newStartDate, LocalDate newEndDate) {
+	void updateBooking(String newGuestID, LocalDate newStartDate, LocalDate newEndDate) {
 		assertAndSetID(newGuestID);
 		assertAndSetDates(newStartDate, newEndDate);
 	}
@@ -59,7 +62,7 @@ public class Booking {
 	 *
 	 * @return startDate
 	 */
-	public LocalDate getStartDate() {
+	LocalDate getStartDate() {
 		return startDate;
 	}
 
@@ -68,7 +71,7 @@ public class Booking {
 	 *
 	 * @return endDate
 	 */
-	public LocalDate getEndDate() {
+	LocalDate getEndDate() {
 		return endDate;
 	}
 
@@ -77,7 +80,7 @@ public class Booking {
 	 *
 	 * @return Returns the EGN of the guest
 	 */
-	public String getGuestId() {
+	String getGuestId() {
 		return guestID;
 	}
 
@@ -87,7 +90,7 @@ public class Booking {
 	 * @param id The guest's id.
 	 */
 	private void assertAndSetID(String id) {
-		if (id == null || id.length() < 10){
+		if (id == null || id.length() < 10) {
 			throw new InvalidValueException("ID has invalid value");
 		}
 		guestID = id;
@@ -114,7 +117,7 @@ public class Booking {
 			startDate = fromDate;
 			endDate = toDate;
 		} else {
-			throw  new ObjectHasNullValueException("Some of the Dates has null value !");
+			throw new ObjectHasNullValueException("Some of the Dates has null value !");
 		}
 	}
 
@@ -124,7 +127,7 @@ public class Booking {
 	 * @param bookings Represents the set of bookings.
 	 * @return Return boolean answer on whether it is present.
 	 */
-	public boolean isPresentIn(Set<Booking> bookings) {
+	boolean isPresentIn(Set<Booking> bookings) {
 		return bookings.contains(this);
 	}
 

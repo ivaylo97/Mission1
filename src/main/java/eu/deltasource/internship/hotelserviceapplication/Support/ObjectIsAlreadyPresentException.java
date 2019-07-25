@@ -9,7 +9,7 @@ import eu.deltasource.internship.hotelserviceapplication.Support.domain.CustomAb
  * It passes the message to it's base class through invoking the base class' constructor in it's own constructor.
  */
 public class ObjectIsAlreadyPresentException extends CustomAbstractException {
-	public ObjectIsAlreadyPresentException(String message){
+	public ObjectIsAlreadyPresentException(String message) {
 		super(message);
 	}
 }

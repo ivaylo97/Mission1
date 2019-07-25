@@ -18,7 +18,6 @@ class RoomTest {
 	public void setUp() {
 		testHotel = new Hotel("testHotel");
 		testRoom = new Room();
-		testRoom.setRoomOwnerHotel(testHotel);
 	}
 
 
@@ -114,7 +113,6 @@ class RoomTest {
 	void testAddCommodity() {
 		//given
 		Bed bed1 = new Bed(BedTypes.SINGLE);
-		Bed sameBed = bed1;
 		Bed nullBed = null;
 		//when
 		testRoom.addCommodity(bed1);
@@ -123,27 +121,7 @@ class RoomTest {
 			testRoom.addCommodity(nullBed);
 		});
 		assertThrows(RuntimeException.class, () -> {
-			testRoom.addCommodity(sameBed);
-		});
-	}
-
-	@Test
-	void testUpdateHotelInventory() {
-		//given
-
-		Hotel testHotel = new Hotel("testHotel");
-		Bed newBed = new Bed(BedTypes.SINGLE);
-		testHotel.addNewRoom(testRoom);
-		//when
-		testRoom.addCommodity(newBed);
-		//then
-		assertFalse(testHotel.getInventory().contains(newBed));
-
-	}
-	@Test
-	void setRoomOwnerHotel(){
-		assertThrows(RuntimeException.class,()->{
-			testRoom.setRoomOwnerHotel(null);
+			testRoom.addCommodity(bed1);
 		});
 	}
 

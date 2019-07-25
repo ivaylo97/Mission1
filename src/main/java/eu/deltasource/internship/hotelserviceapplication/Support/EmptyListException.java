@@ -9,7 +9,7 @@ import eu.deltasource.internship.hotelserviceapplication.Support.domain.CustomAb
  * It passes the message to it's base class through invoking the base class' constructor in its own constructor.
  */
 public class EmptyListException extends CustomAbstractException {
-	public EmptyListException(String message ) {
+	public EmptyListException(String message) {
 		super(message);
 	}
 }

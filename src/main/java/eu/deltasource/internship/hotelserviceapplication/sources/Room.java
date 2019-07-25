@@ -27,8 +27,6 @@ public class Room {
 	private Set<AbstractCommodity> commodities;
 	private Set<LocalDate> maintenanceDates;
 	private Set<Booking> bookings;
-	private Hotel roomOwnerHotel;
-
 
 	/**
 	 * Constructor initializing the members of the Room class
@@ -37,6 +35,7 @@ public class Room {
 		commodities = new HashSet<>();
 		maintenanceDates = new HashSet<>();
 		bookings = new HashSet<>();
+		roomCapacity = 0;
 	}
 
 	public int getRoomNumber() {
@@ -48,7 +47,7 @@ public class Room {
 	 *
 	 * @param newMaintenanceDate A Date typed object that represents a date at which the room is under maintenance.
 	 */
-	public void maintainRoom(LocalDate newMaintenanceDate) {
+	void maintainRoom(LocalDate newMaintenanceDate) {
 
 		if (newMaintenanceDate == null) {
 			throw new ObjectHasNullValueException("newMaintenanceDate has null value !");
@@ -71,7 +70,7 @@ public class Room {
 	 * @param fromDate fromDate is a LocalDate type variable which contains the requested booking's starting date.
 	 * @param toDate   toDate is a LocalDate type variable which contains the requested booking's end date .
 	 */
-	public int createBooking(String guestEGN, LocalDate fromDate, LocalDate toDate) {
+	int createBooking(String guestEGN, LocalDate fromDate, LocalDate toDate) {
 		Booking objectToBeBooked = new Booking(guestEGN, fromDate, toDate);
 
 		if (!objectToBeBooked.isPresentIn(bookings)) {
@@ -93,7 +92,7 @@ public class Room {
 	 * @param toDate   LocalDate type variable  that represents the end date of the booking that is to be removed.
 	 * @param guestId  String type variable which contains the EGN of the guest which booked the room.
 	 */
-	public void removeBooking(String guestId, LocalDate fromDate, LocalDate toDate) {
+	void removeBooking(String guestId, LocalDate fromDate, LocalDate toDate) {
 		if (guestId == null) {
 			throw new ObjectHasNullValueException("guestID has null value !");
 		}
@@ -113,7 +112,7 @@ public class Room {
 	/**
 	 * Removes all of the bookings currently present in the booking set.
 	 */
-	public void removeAllBookings() {
+	void removeAllBookings() {
 		bookings.clear();
 	}
 
@@ -129,7 +128,7 @@ public class Room {
 	 * @param newNumberOfToilets An int type variable , used to set the number of toilets present in the room , also to to add that number of
 	 *                           toilets into the commodities set.
 	 */
-	public void setCommodities(int newNumberOfBeds, BedTypes bedType, int newNumberOfShowers, int newNumberOfToilets) {
+	void setCommodities(int newNumberOfBeds, BedTypes bedType, int newNumberOfShowers, int newNumberOfToilets) {
 		for (int bedCounter = 0; bedCounter < newNumberOfBeds; bedCounter++) {
 			addCommodity(new Bed(bedType));
 		}
@@ -139,25 +138,21 @@ public class Room {
 		for (int toiletCounter = 0; toiletCounter < newNumberOfToilets; toiletCounter++) {
 			addCommodity(new Toilet());
 		}
-
-	} // this method should be in test classes
-
+	}
 
 	/**
 	 * Returns the number of beds in the room.
-	 *
 	 * @return roomCapacity
 	 */
-	public int getRoomCapacity() {
+	int getRoomCapacity() {
 		return roomCapacity;
 	}
 
 	/**
 	 * Iterates over the commodities set and returns the number of showers in the room.
-	 *
 	 * @return numberOfShowers
 	 */
-	public int getNumberOfShowers() {
+	int getNumberOfShowers() {
 		int numberOfShowers = 0;
 
 		for (AbstractCommodity commodity : commodities) {
@@ -173,7 +168,7 @@ public class Room {
 	 *
 	 * @return numberOfToilets
 	 */
-	public int getNumberOfToilets() {
+	int getNumberOfToilets() {
 		int numberOfToilets = 0;
 		for (AbstractCommodity commodity : commodities) {
 			if (commodity instanceof Toilet) {
@@ -183,15 +178,27 @@ public class Room {
 		return numberOfToilets;
 	}
 
-	public Set<LocalDate> getMaintenanceDates() {
+	/**
+	 *
+	 * @return - Returns the set of maintenanceDates.
+	 */
+	Set<LocalDate> getMaintenanceDates() {
 		return maintenanceDates;
 	}
 
-	public Set<Booking> getBookings() {
+	/**
+	 *
+	 * @return - Returns the set of bookings.
+	 */
+	Set<Booking> getBookings() {
 		return bookings;
 	}
 
-	public Set<AbstractCommodity> getCommodities() {
+	/**
+	 *
+	 * @return - Returns the set of commodities.
+	 */
+	Set<AbstractCommodity> getCommodities() {
 		return commodities;
 	}
 
@@ -222,68 +229,45 @@ public class Room {
 		return true;
 	}
 
-	/**
-	 * The method is used to change/set/initialize the room's number.
-	 *
-	 * @param roomNumber - An integer type variable ,representing the the room number that is to be assigned to the
-	 *                   current room.
-	 */
+		/**
+         * The method is used to change/set/initialize the room's number.
+         *
+         * @param roomNumber - An integer type variable ,representing the the room number that is to be assigned to the
+         *                   current room.
+         */
 	void setRoomNumber(int roomNumber) {
 		this.roomNumber = roomNumber;
 	}
 
 	/**
-	 * roomOwnerHotel is a connection between the room and the hotel ,in which the room is present in.
+	 * Adds a commodity to the room's set of commodities.
 	 *
-	 * @param hotel -An object of the Hotel class , representing the hotel in which the current room is present.
+	 * @param commodity Represents the commodity that we want to add to the room.
 	 */
-	public void setRoomOwnerHotel(Hotel hotel) {
-		if (hotel == null) {
-			throw new ObjectHasNullValueException("hotel has null value !"); // better exception name
+	void addCommodity(AbstractCommodity commodity) {
+		if (commodity == null) {
+			throw new ObjectHasNullValueException("commodity has null value !");
 		}
-		roomOwnerHotel = hotel;
+		if (commodities.contains(commodity)) {
+			throw new ObjectIsAlreadyPresentException("The commodity is already present inside the commodities set.");
+		}
+		if (commodity instanceof Bed) {
+			if (!((Bed) commodity).isDeployed()) {
+				((Bed) commodity).deployBed();
+				roomCapacity += ((Bed) commodity).getBedType().getBedCapacity();
+			}
+		}
+		commodities.add(commodity);
 	}
 
-		/**
-		 * Adds a commodity to the room's set of commodities.
-		 *
-		 * @param commodity Represents the commodity that we want to add to the room.
-		 */
-		public void addCommodity (AbstractCommodity commodity){
-			if (commodity == null) {
-				throw new ObjectHasNullValueException("commodity has null value !");
-			}
-			if (commodities.contains(commodity)) {
-				throw new ObjectIsAlreadyPresentException("The commodity is already present inside the commodities set.");
-			}
-			if (commodity instanceof Bed) {
-				if (!((Bed) commodity).isDeployed()) {
-					((Bed) commodity).deployBed();
-					roomCapacity += ((Bed) commodity).getBedType().getBedCapacity();
-				}
-			}
-			commodities.add(commodity);
-			updateHotelInventory(commodity);
-		}
-
-		/**
-		 * Updates the inventory of the hotel where the room is present
-		 *
-		 * @param commodity - Represents the commodity ,which is to be added to the inventory.
-		 */
-		public void updateHotelInventory (AbstractCommodity commodity){
-			roomOwnerHotel.getInventory().add(commodity);
-		}
-
-
-		@Override
-		public boolean equals (Object compareObject){
-			if (!(compareObject instanceof Room)) return false;
-			return this.roomNumber == ((Room) compareObject).roomNumber;
-		}
-
-		@Override
-		public int hashCode () {
-			return this.roomNumber;
-		}
+	@Override
+	public boolean equals(Object compareObject) {
+		if (!(compareObject instanceof Room)) return false;
+		return this.roomNumber == ((Room) compareObject).roomNumber;
 	}
+
+	@Override
+	public int hashCode() {
+		return this.roomNumber;
+	}
+}

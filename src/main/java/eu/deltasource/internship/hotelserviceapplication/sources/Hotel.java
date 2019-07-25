@@ -1,8 +1,10 @@
 package eu.deltasource.internship.hotelserviceapplication.sources;
 
 import eu.deltasource.internship.hotelserviceapplication.Support.EmptyStringException;
+import eu.deltasource.internship.hotelserviceapplication.Support.InvalidValueException;
 import eu.deltasource.internship.hotelserviceapplication.Support.ObjectHasNullValueException;
 import eu.deltasource.internship.hotelserviceapplication.hotelCommodities.domain.AbstractCommodity;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,24 +26,25 @@ public class Hotel {
 	 * A private default constructor used to prevent the creation of Hotel objects without providing the
 	 * mandatory data for the hotel.
 	 */
-	private Hotel() {}
+	private Hotel() {
+	}
 
 	/**
 	 * A constructor of the Hotel class, takes one formal parameter.
+	 *
 	 * @param hotelName - A string type variable , represents the name that is to be assigned to the
 	 *                  hotelName member of the class.
 	 */
-	Hotel(String hotelName){
+	Hotel(String hotelName) {
 		setHotelName(hotelName);
 		listOfRooms = new ArrayList<>();
 		inventory = new HashSet<>();
 	}
 
 	/**
-	 *
 	 * @return - Returns the number of rooms currently present in the hotel.
 	 */
-	public int getNumberOfRooms() {
+	int getNumberOfRooms() {
 		return listOfRooms.size();
 	}
 
@@ -50,14 +53,34 @@ public class Hotel {
 	 *
 	 * @param newRoom Represents the room to be added.
 	 */
-	public void addNewRoom(Room newRoom) {
+	void addNewRoom(Room newRoom) {
 		if (newRoom == null) {
-
 			throw new ObjectHasNullValueException("newRoom has null value.");
 		}
 		newRoom.setRoomNumber(listOfRooms.size() + 1);
 		listOfRooms.add(newRoom);
 		inventory.addAll(newRoom.getCommodities());
+	}
+
+	/**
+	 * A method allowing the hotel to add commodities to its rooms by specifying room number and
+	 * the commodity to be added.
+	 * The very reason for the creation of this method is to allow dynamic update mechanic for
+	 * the inventory set.
+	 *
+	 * @param commodity  - Represents the commodity to be added .
+	 * @param roomNumber - Represents the room number of the room that will have
+	 *                   the commodity added to.
+	 */
+	public void AddCommodityToRoom(AbstractCommodity commodity, int roomNumber) {
+		if (commodity == null || roomNumber <= 0) {
+			throw new InvalidValueException("commodity/roomNumber has an invalid value");
+		}
+		Room tempRoom = listOfRooms.get(--roomNumber);
+		if (!inventory.contains(commodity) && (!tempRoom.getCommodities().contains(commodity))) {
+			tempRoom.addCommodity(commodity);
+			inventory.add(commodity);
+		}
 	}
 
 	/**
@@ -70,21 +93,21 @@ public class Hotel {
 	/**
 	 * @param newHotelName String type variable ,used to set a new value to the hotel's name.
 	 */
-	public void setHotelName(String newHotelName) {
+	void setHotelName(String newHotelName) {
 		if (newHotelName == null || newHotelName.isEmpty()) {
 			throw new EmptyStringException(newHotelName);
 		}
 		hotelName = newHotelName;
 	}
 
-	public Set<AbstractCommodity> getInventory() {
+	Set<AbstractCommodity> getInventory() {
 		return inventory;
 	}
 
 	/**
 	 * @return Returns the hotel's list of rooms.
 	 */
-	public List<Room> getListOfRooms() {
+	List<Room> getListOfRooms() {
 		return listOfRooms;
 	}
 
@@ -93,7 +116,7 @@ public class Hotel {
 	 *
 	 * @return Returns a list of rooms that have the required number of rooms.
 	 */
-	public List<Room> searchForRooms(int numberOfRequiredBeds) {
+	List<Room> searchForRooms(int numberOfRequiredBeds) {
 		List<Room> temporaryList = new ArrayList<>();
 		for (Room listOfRoom : listOfRooms) {
 			if (listOfRoom.getRoomCapacity() == numberOfRequiredBeds) {
