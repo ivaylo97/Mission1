@@ -5,6 +5,7 @@ import eu.deltasource.internship.hotelserviceapplication.hotelCommodities.BedTyp
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
+import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -105,53 +106,92 @@ class ManagerTest {
 	@Test
 	void testUnBookRoom() {
 		//given
-		String EGN = "1111111111";
+		String guestID = "1111111111";
 		LocalDate startDate = LocalDate.parse("2020-01-01");
 		LocalDate endDate = LocalDate.parse("2020-02-02");
 		int numberOfRequiredBeds = 3;
 		Manager Ivan = new Manager("Ivan");
-		Hotel transylvania = new Hotel("Ivan's Hotel");
+		Hotel testHotel = new Hotel("Ivan's Hotel");
 
 		//when
 		testRoom1.setCommodities(3, BedTypes.SINGLE, 1, 1);
 		testRoom2.setCommodities(3, BedTypes.SINGLE, 1, 1);
 
-		transylvania.addNewRoom(testRoom1);
-		transylvania.addNewRoom(testRoom2);
+		testHotel.addNewRoom(testRoom1);
+		testHotel.addNewRoom(testRoom2);
 
-		Ivan.setHotel(transylvania);
-		Ivan.bookRoom(EGN, startDate, endDate, numberOfRequiredBeds);
-		Ivan.unBookRoom(EGN,startDate,endDate);
+		Ivan.setHotel(testHotel);
+		Ivan.bookRoom(guestID, startDate, endDate, numberOfRequiredBeds);
+		Ivan.unBookRoom(guestID, startDate, endDate, testRoom1.getRoomNumber());
 		//then
 		assertTrue(testRoom1.getBookings().isEmpty());
 		assertThrows(RuntimeException.class, () -> {
-			Ivan.unBookRoom(null, null, null);
+			Ivan.unBookRoom(null, null, null, testRoom1.getRoomNumber());
 		});
 		assertThrows(RuntimeException.class, () -> {
-			Ivan.unBookRoom("1234567890", null, null);
+			Ivan.unBookRoom("1234567890", null, null, -1);
+		});
+		assertThrows(RuntimeException.class, () -> {
+			Ivan.unBookRoom("1234567890", startDate, endDate, -1);
+		});
+		assertThrows(RuntimeException.class, () -> {
+			Ivan.unBookRoom("1234567890", startDate, endDate, 10);
 		});
 	}
+
 	@Test
-	void testSetManagerName(){
+	void testSetManagerName() {
 		//given
 		String managerName = "Ivan";
 		//when
 		Ivan.setManagerName(managerName);
 		//then
-		assertThrows(RuntimeException.class,()->{
+		assertThrows(RuntimeException.class, () -> {
 			Ivan.setManagerName("");
 		});
 		assertEquals(managerName, Ivan.getManagerName());
 	}
+
 	@Test
-	void testSetHotel(){
+	void testSetHotel() {
 		//given
 		Hotel nullHotel = null;
 		//when + then
-		assertThrows(RuntimeException.class,()->{
+		assertThrows(RuntimeException.class, () -> {
 			Ivan.setHotel(nullHotel);
 		});
 	}
+
+	@Test
+	void testUpdateBooking() {
+		//given
+		String guestID = "1111111111";
+		LocalDate startDate = LocalDate.parse("2020-01-01");
+		LocalDate newStartDate = LocalDate.of(2020, 03, 01);
+		LocalDate endDate = LocalDate.parse("2020-02-02");
+		LocalDate newEndDate = LocalDate.of(2020, 03, 02);
+		int numberOfRequiredBeds = 3;
+		Iterator<Booking> bookingContainer;
+		Booking testBooking;
+		Manager Ivan = new Manager("Ivan");
+		Hotel testHotel = new Hotel("Ivan's Hotel");
+
+		testRoom1.setCommodities(3, BedTypes.SINGLE, 1, 1);
+		testRoom2.setCommodities(3, BedTypes.SINGLE, 1, 1);
+
+		testHotel.addNewRoom(testRoom1);
+		testHotel.addNewRoom(testRoom2);
+		Ivan.setHotel(testHotel);
+		//when
+		Ivan.bookRoom(guestID, startDate, endDate, numberOfRequiredBeds);
+		Ivan.updateBooking(guestID, startDate, endDate, testRoom1.getRoomNumber(), newStartDate, newEndDate);
+		bookingContainer = testRoom1.getBookings().iterator();
+		testBooking = bookingContainer.next();
+		//then
+		assertEquals(newStartDate, testBooking.getStartDate());
+		assertEquals(newEndDate, testBooking.getEndDate());
+	}
+
 
 	static LocalDate configureDate(String date) {
 		return LocalDate.parse(date);

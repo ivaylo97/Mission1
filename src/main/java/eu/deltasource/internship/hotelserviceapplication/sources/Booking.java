@@ -47,6 +47,7 @@ public class Booking {
 	/**
 	 * The method uses it's passed formal parameters ,asserts if they have correct values and then uses them to
 	 * Re-Set the already present and set object members.
+	 * The formal parameters are pre-checked for null or invalid values.
 	 *
 	 * @param newGuestID   newGuestID is a string type variable , containing the guest's EGN number.
 	 * @param newStartDate newStartDate is a LocalDate type variable which contains the requested booking's starting date.

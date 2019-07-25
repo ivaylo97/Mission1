@@ -39,7 +39,7 @@ class HotelTest {
 		//when
 		testHotel.addNewRoom(testRoom1);
 		//then
-		assertThrows(RuntimeException.class,()->{
+		assertThrows(RuntimeException.class, () -> {
 			testHotel.addNewRoom(nullRoom);
 		});
 		assertFalse(testHotel.getListOfRooms().isEmpty());
@@ -51,8 +51,8 @@ class HotelTest {
 		testRoom1.setCommodities(3, BedTypes.SINGLE, 0, 0);
 		testRoom2.setCommodities(2, BedTypes.SINGLE, 0, 0);
 		//when
-		testHotel.addNewRoom( testRoom1);
-		testHotel.addNewRoom( testRoom2);
+		testHotel.addNewRoom(testRoom1);
+		testHotel.addNewRoom(testRoom2);
 		//then
 		assertFalse(testHotel.searchForRooms(3).isEmpty());
 		assertEquals(1, testHotel.searchForRooms(3).size());
@@ -66,7 +66,7 @@ class HotelTest {
 		Bed newBed = new Bed(BedTypes.SINGLE);
 		testHotel.addNewRoom(testRoom1);
 		//when
-		testHotel.AddCommodityToRoom(newBed,testRoom1.getRoomNumber());
+		testHotel.AddCommodityToRoom(newBed, testRoom1.getRoomNumber());
 		//then
 		assertTrue(testHotel.getInventory().contains(newBed));
 

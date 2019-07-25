@@ -15,7 +15,7 @@ class RoomTest {
 	private Hotel testHotel;
 
 	@BeforeEach
-	public void setUp() {
+	void setUp() {
 		testHotel = new Hotel("testHotel");
 		testRoom = new Room();
 	}
@@ -25,10 +25,14 @@ class RoomTest {
 	void testMaintainRoom() {
 		//given
 		LocalDate testMaintenanceDate = LocalDate.parse("2020-01-01");
+		LocalDate nullMaintenanceDate = null;
 		//when
 		testRoom.maintainRoom(testMaintenanceDate);
 		//then
 		assertFalse(testRoom.getMaintenanceDates().isEmpty());
+		assertThrows(RuntimeException.class, () -> {
+			testRoom.maintainRoom(nullMaintenanceDate);
+		});
 	}
 
 	@Test
@@ -55,13 +59,20 @@ class RoomTest {
 		//given
 		LocalDate testStartDate = LocalDate.parse("2020-01-01");
 		LocalDate testEndDate = LocalDate.parse("2020-02-02");
-		String guestEng = "11111111111";
+		LocalDate nullDate = null;
+		String guestID = "11111111111";
 		testHotel.addNewRoom(testRoom);
 		//when
-		testRoom.createBooking(guestEng, testStartDate, testEndDate);
-		testRoom.removeBooking(guestEng, testStartDate, testEndDate);
+		testRoom.createBooking(guestID, testStartDate, testEndDate);
+		testRoom.removeBooking(guestID, testStartDate, testEndDate);
 		//then
 		assertTrue(testRoom.getBookings().isEmpty());
+		assertThrows(RuntimeException.class, () -> {
+			testRoom.removeBooking(guestID, nullDate, testEndDate);
+		});
+		assertThrows(RuntimeException.class, () -> {
+			testRoom.removeBooking(guestID, testStartDate, nullDate);
+		});
 	}
 
 	@Test
@@ -89,9 +100,9 @@ class RoomTest {
 		testRoom.setCommodities(numberOfBeds, BedTypes.SINGLE, numberOfShowers, numberOfToilets);
 		//then
 		assertFalse(testRoom.getCommodities().isEmpty());
-		assertTrue(testRoom.getRoomCapacity() == 3);
-		assertTrue(testRoom.getNumberOfShowers() == 3);
-		assertTrue(testRoom.getNumberOfToilets() == 3);
+		assertEquals(3, testRoom.getRoomCapacity());
+		assertEquals(3, testRoom.getNumberOfShowers());
+		assertEquals(3, testRoom.getNumberOfToilets());
 	}
 
 	@Test
@@ -104,9 +115,9 @@ class RoomTest {
 		testRoom.setCommodities(numberOfBeds, BedTypes.DOUBLE, numberOfShowers, numberOfToilets);
 		//then
 		assertFalse(testRoom.getCommodities().isEmpty());
-		assertTrue(testRoom.getRoomCapacity() == 6);
-		assertTrue(testRoom.getNumberOfShowers() == 3);
-		assertTrue(testRoom.getNumberOfToilets() == 3);
+		assertEquals(6, testRoom.getRoomCapacity());
+		assertEquals(3, testRoom.getNumberOfShowers());
+		assertEquals(3, testRoom.getNumberOfToilets());
 	}
 
 	@Test
@@ -125,4 +136,28 @@ class RoomTest {
 		});
 	}
 
+	@Test
+	void testCheckAvailability() {
+		//given
+		String guestID = "0123456789";
+		LocalDate startDate = LocalDate.of(2020, 3, 3);
+		LocalDate endDate = LocalDate.of(2020, 3, 20);
+		//when
+		testRoom.createBooking(guestID, startDate, endDate);
+		//then
+		assertFalse(testRoom.checkAvailability(LocalDate.of(2020, 3, 4), LocalDate.of(2020, 3, 17)));
+	}
+
+	@Test
+	void testCompare() {
+		//given
+		String guestID = "0123456789";
+		LocalDate startDate = LocalDate.of(2020, 3, 3);
+		LocalDate endDate = LocalDate.of(2020, 3, 20);
+		testRoom.createBooking(guestID, startDate, endDate);
+		Booking testBooking = testRoom.getBookings().iterator().next();
+		//when + then
+		assertTrue(testRoom.compare(testBooking, guestID, startDate, endDate));
+		assertFalse(testRoom.compare(testBooking, "1234567890", startDate, endDate));
+	}
 }

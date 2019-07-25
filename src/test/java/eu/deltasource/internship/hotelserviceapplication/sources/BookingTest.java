@@ -13,10 +13,11 @@ class BookingTest {
 
 	private LocalDate testStartDate;
 	private LocalDate testEndDate;
+
 	@BeforeEach
-	public void setUp(){
-		 testStartDate = LocalDate.parse("2020-02-02");
-		 testEndDate = LocalDate.parse("2020-02-02");
+	public void setUp() {
+		testStartDate = LocalDate.parse("2020-02-02");
+		testEndDate = LocalDate.parse("2020-02-02");
 	}
 
 	@Test
@@ -37,23 +38,23 @@ class BookingTest {
 		assertTrue(testStartDate.equals(testBooking.getStartDate()));
 		assertTrue(testEndDate.equals(testBooking.getEndDate()));
 
-		assertThrows(RuntimeException.class,()->{
-			testBooking.updateBooking(null,testStartDate,testEndDate);
+		assertThrows(RuntimeException.class, () -> {
+			testBooking.updateBooking(null, testStartDate, testEndDate);
 		});
-		assertThrows(RuntimeException.class,()->{
-			testBooking.updateBooking("123456789",testStartDate,testEndDate);
+		assertThrows(RuntimeException.class, () -> {
+			testBooking.updateBooking("123456789", testStartDate, testEndDate);
 		});
-		assertThrows(RuntimeException.class,()->{
-			testBooking.updateBooking("1234567890",testEndDate,testStartDate);
+		assertThrows(RuntimeException.class, () -> {
+			testBooking.updateBooking("1234567890", testEndDate, testStartDate);
 		});
-		assertThrows(RuntimeException.class,()->{
-			testBooking.updateBooking("1234567890",null,testEndDate);
+		assertThrows(RuntimeException.class, () -> {
+			testBooking.updateBooking("1234567890", null, testEndDate);
 		});
-		assertThrows(RuntimeException.class,()->{
-			testBooking.updateBooking("1234567890",LocalDate.parse("1997-01-01"),testEndDate);
+		assertThrows(RuntimeException.class, () -> {
+			testBooking.updateBooking("1234567890", LocalDate.parse("1997-01-01"), testEndDate);
 		});
-		assertThrows(RuntimeException.class,()->{
-			testBooking.updateBooking("1234567890",testStartDate,LocalDate.parse("1997-01-01"));
+		assertThrows(RuntimeException.class, () -> {
+			testBooking.updateBooking("1234567890", testStartDate, LocalDate.parse("1997-01-01"));
 		});
 
 	}
