@@ -115,6 +115,9 @@ public class Booking {
 			if (fromDate.isAfter(toDate)) {
 				throw new InvalidValueException(fromDate.toString() + " is after " + toDate.toString() + " !");
 			}
+			if(fromDate.equals(toDate)){
+				throw new InvalidValueException(fromDate+" cannot be equal to "+ toDate);
+			}
 			startDate = fromDate;
 			endDate = toDate;
 		} else {
